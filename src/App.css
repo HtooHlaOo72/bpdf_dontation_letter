@@ -4,9 +4,11 @@
     width:100%;
     height:90vh;
     display: flex;
+    padding:0;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 .home-text{
     font-size: 35px;
@@ -19,6 +21,97 @@
 }
 .home-header{
     justify-self: flex-start;
-    font-size: 40px;
-    border-radius: 15px;
+    font-size: 25px;
+    border-radius: 10px;
+    padding-left: 0;
+    padding-right: 0;
+}
+.home-header h1{
+    text-align: center;
+}
+.login-box{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    
+}
+.must-export{
+    width:90%;
+    height:110vw;
+    margin:auto;
+    padding-top:3rem;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.must-export p{
+    text-align: center;
+}
+.certi-logo{
+    width:100px;
+    height:auto;
+    border: 2.5px solid black;
+}
+.certi-header{
+    text-align: center;
+}
+.certi-sub-header{
+    text-align: center;
+}
+.certi-date{
+    margin-right:0;
+}
+.whole-reason{
+    text-align: center;
+}
+.certi-date-box{
+    text-align: end;
+    margin-top:80px;
+    margin-bottom:60px;
+}
+
+.certi-text{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height:350px;
+    background-image: url(./utils/images/bpdf_bg.png);
+    background-size:cover ;
+    font-size: 20px;
+    
+    
+}
+
+.foot-box{
+    display: flex;
+    align-self: end;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.login-form{
+    width: 70%;
+    
+    margin-left: auto;
+    margin-right: auto;
+}
+@media (min-width: 576px) {
+
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
 }
