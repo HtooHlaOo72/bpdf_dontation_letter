@@ -1,27 +1,34 @@
+import { useEffect } from "react";
 import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
-export default function LoginForm() {
+import { connect } from "react-redux";
+import { loginUser } from "../actions/authActions";
+
+function LoginForm(props) {
   const history = useHistory();
+  useEffect(() => {
+    console.log("authentication changed...");
+    if(props.auth.isAuthenticated)  history.push('/dashboard');
+   
+
+  }, [props.auth.isAuthenticated]);
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
-    onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
-      history.push("/donate");
+
+    onSubmit: async (values) => {
+      const { username, password } = await values;
+      await props.loginUser(username, password);
+      
     },
   });
 
   return (
     <div className="container bg-danger login-box">
-      
-      <form
-        onSubmit={formik.handleSubmit}
-        className="mt-5 login-form"
-      > 
-        <h1 className=''>Login</h1>
+      <form onSubmit={formik.handleSubmit} className="mt-5 login-form">
+        <h1 className="">Login</h1>
         <div className="mb-3">
           <label htmlFor="username" className="form-label">
             Username:
@@ -50,7 +57,12 @@ export default function LoginForm() {
             onChange={formik.handleChange}
           />
         </div>
-
+        {
+        (props.auth.error)&&
+        <div className="alert alert-secondary" role="alert">
+          Invalid username or password
+        </div>
+        }
         <button type="submit" className="btn btn-warning">
           Submit
         </button>
@@ -59,3 +71,9 @@ export default function LoginForm() {
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { loginUser })(LoginForm);

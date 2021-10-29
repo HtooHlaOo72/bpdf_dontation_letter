@@ -4,10 +4,11 @@ import uuid from 'react-uuid';
 
 import { useFormik } from "formik";
 
-import { createDonation } from "../actions/donationActions";
+import { updateDonation } from "../actions/donationActions";
 import { connect } from "react-redux";
 
 const validate = (values) => {
+
   const errors = {};
   if (!values.donor) {
     errors.donor = "Required";
@@ -36,7 +37,7 @@ const validate = (values) => {
   return errors;
 };
 
-function DonateForm(props) {
+function EditForm(props) {
 
   const history=useHistory();
   //export component as image or pdf
@@ -44,18 +45,19 @@ function DonateForm(props) {
     if(!props.auth.isAuthenticated){
       history.push('/login');
     }
+
   },[]);
   const formik = useFormik({
     initialValues: {
-      donor: "",
-      amount: "",
-      topic: "",
-      signedBy: "",
+      donor: props.donation.donor,
+      amount: props.donation.amount,
+      topic: props.donation.topic,
+      signedBy: props.donation.signedBy,
     },
     validate,
     onSubmit: async (values) => {
-      values.serialNo=await uuid();
-      await props.createDonation(values,props.auth.token);
+      const newData={...props.donation,...values};
+      await props.updateDonation(newData,props.auth.token);
       history.push('/dashboard')
     },
   });
@@ -153,5 +155,6 @@ function DonateForm(props) {
 }
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  donation:state.donationList.donation
 });
-export default connect(mapStateToProps, { createDonation })(DonateForm);
+export default connect(mapStateToProps, { updateDonation })(EditForm);

@@ -18,7 +18,7 @@ const MustExport = ({ name, amount, responsibleBy, reason }) => {
   console.log(name, amount);
   return (
     <div className="must-export" ref={toExport}>
-      <img src={Logo} className="certi-logo" />
+      <img src={Logo} className="certi-logo" alt="..."/>
       <h1 className="certi-header">Bago People Defence Force - BPDF</h1>
       <h2 className="certi-sub-header">မှတ်တမ်းတင်ဂုဏ်ပြုလွှာ</h2>
       <div className="certi-date-box">

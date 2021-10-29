@@ -11,7 +11,7 @@ export default function Home(){
                         အလှူငွေမှတ်တမ်း ပြုလုပ်သည့် Web Application
                     </p>
                     <p className='home-text'>Create Donation Letter</p>
-                    <Link to='/login' className='btn btn-warning home-btn home-text'>Login</Link>
+                    <Link to='/dashboard' className='btn btn-warning home-btn home-text'>Dashboard</Link>
                 </div>
             </div>
         </div>
