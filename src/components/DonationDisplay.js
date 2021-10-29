@@ -33,7 +33,7 @@ function DonatonDisplay(props) {
         </button>
         <button
           className="btn btn-success col-6"
-          onClick={() => {}}
+          onClick={() => {props.generateClick()}}
         >
           Generate
         </button>

@@ -3,6 +3,8 @@ import {fetchDonations,deleteDonation,updateDonation,sortDonations,setEditData} 
 import {useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import DonationDisplay from './DonationDisplay';
+
+import {generateDocx} from '../utils/generateDocx';
 function Dashboard(props){
     const history=useHistory();
     
@@ -35,7 +37,10 @@ function Dashboard(props){
     const sortByAmount=()=>{
         props.sortDonations();
     }
-
+    const generateClick=()=>{
+        console.log("Generate docx")
+        generateDocx("test.docx");
+    }
     return (
         <div className='container-fluid'>
             
@@ -61,6 +66,7 @@ function Dashboard(props){
                     donation={donation} 
                     deleteClick={deleteClick}
                     updateClick={updateClick} 
+                    generateClick={generateClick}
                 />
                 )}
             </div>
