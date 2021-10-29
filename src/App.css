@@ -100,11 +100,13 @@
 }
 .btn-box{
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 .dashboard-btn{
-    width:70px;
+    flex:1;
+    min-width:80px;
 }
 @media (min-width: 576px) {
 

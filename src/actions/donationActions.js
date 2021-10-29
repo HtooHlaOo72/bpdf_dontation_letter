@@ -1,4 +1,4 @@
-import { FETCH_ALL, ADD_DONATION, DELETE_DONATION,UPDATE_DONATION, SET_EDIT_DATA } from './types';
+import { FETCH_ALL, ADD_DONATION, DELETE_DONATION,UPDATE_DONATION, SET_EDIT_DATA, SORT_DONATIONS } from './types';
 
 export const fetchDonations = (token) => dispatch => {
   fetch('http://localhost:3000/donations',{
@@ -80,5 +80,12 @@ export const setEditData=(donation)=>dispatch=>{
   dispatch({
     type:SET_EDIT_DATA,
     payload:donation
+  })
+}
+
+export const sortDonations=()=>dispatch=>{
+  dispatch({
+    type:SORT_DONATIONS,
+    payload:""
   })
 }

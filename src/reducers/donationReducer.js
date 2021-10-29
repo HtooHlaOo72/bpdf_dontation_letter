@@ -1,4 +1,11 @@
-import { FETCH_ALL, ADD_DONATION,UPDATE_DONATION, DELETE_DONATION, SET_EDIT_DATA } from "../actions/types";
+import {
+  FETCH_ALL,
+  ADD_DONATION,
+  UPDATE_DONATION,
+  DELETE_DONATION,
+  SET_EDIT_DATA,
+  SORT_DONATIONS,
+} from "../actions/types";
 
 const initialState = {
   donations: [],
@@ -20,7 +27,11 @@ export default function donationReducer(state = initialState, action) {
     case UPDATE_DONATION:
       return {
         ...state,
-        donations: [...state.donations.map((dona)=>(dona._id!==action.payload._id)?dona:action.payload)],
+        donations: [
+          ...state.donations.map((dona) =>
+            dona._id !== action.payload._id ? dona : action.payload
+          ),
+        ],
       };
     case DELETE_DONATION:
       return {
@@ -30,10 +41,15 @@ export default function donationReducer(state = initialState, action) {
         ],
       };
     case SET_EDIT_DATA:
-        return {
-          ...state,
-          donation: action.payload,
-        };
+      return {
+        ...state,
+        donation: action.payload,
+      };
+    case SORT_DONATIONS:
+      return {
+        ...state,
+        donations: [...state.donations.sort((a,b)=>a.amount-b.amount)],
+      };
     default:
       return state;
   }

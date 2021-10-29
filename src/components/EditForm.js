@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import uuid from 'react-uuid';
 
 import { useFormik } from "formik";
 
@@ -8,34 +7,33 @@ import { updateDonation } from "../actions/donationActions";
 import { connect } from "react-redux";
 
 const validate = (values) => {
-
-  const errors = {};
-  if (!values.donor) {
-    errors.donor = "Required";
-  } else if (values.donor.length > 50) {
-    errors.donor = "Must be 50 characters or less";
-  }
-
-  if (!values.amount) {
-    errors.amount = "Required";
-  } else if (values.lastName < 1) {
-    errors.amount = "Must be 1 or more";
-  }
-
-  if (!values.topic) {
-    errors.topic = "Required";
-  } else if (values.topic.length > 600) {
-    errors.topic = "Must be less than 600 characters";
-  }
-
-  if (!values.signedBy) {
-    errors.signedBy = "Required";
-  } else if (values.signedBy.length > 50) {
-    errors.signedBy = "Must be 50 characters or less";
-  }
-
-  return errors;
-};
+    const errors = {};
+    if (!values.donor) {
+      errors.donor = "Required";
+    } else if (values.donor.length > 50) {
+      errors.donor = "Must be 50 characters or less";
+    }
+  
+    if (!values.amount) {
+      errors.amount = "Required";
+    } else if (values.lastName < 1) {
+      errors.amount = "Must be 1 or more";
+    }
+  
+    if (values.defaultTopic==="" && values.topic.length<=0) {
+      errors.topic = "Required";
+    } else if (values.topic.length > 600) {
+      errors.topic = "Must be less than 600 characters";
+    }
+  
+    if (!values.signedBy) {
+      errors.signedBy = "Required";
+    } else if (values.signedBy.length > 50) {
+      errors.signedBy = "Must be 50 characters or less";
+    }
+  
+    return errors;
+  };
 
 function EditForm(props) {
 
@@ -55,11 +53,15 @@ function EditForm(props) {
       signedBy: props.donation.signedBy,
     },
     validate,
-    onSubmit: async (values) => {
-      const newData={...props.donation,...values};
-      await props.updateDonation(newData,props.auth.token);
-      history.push('/dashboard')
+    onSubmit: (values) => {
+      let { donor, amount, signedBy, topic, defaultTopic } = values;
+      topic = defaultTopic ? defaultTopic : topic;
+      const newDonation = { donor, amount, topic, signedBy };
+      const newData = { ...props.donation, ...newDonation };
+      props.updateDonation(newData, props.auth.token);
+      history.push("/dashboard");
     },
+    
   });
 
   return (
@@ -124,6 +126,23 @@ function EditForm(props) {
                   {formik.errors.topic}
                 </div>
               )}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="signedBy" className="form-label">
+              အကြောင်းအရာ
+              </label>
+              <select className="form-select" 
+                      aria-label="Default select example"
+                      id="defaultTopic"
+                      name="defaultTopic"
+                      value={formik.values.defaultTopic}
+                      onChange={formik.handleChange}
+                      >
+                <option value={formik.values.topic}>{formik.values.topic}</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
             </div>
             <div className="mb-3">
               <label htmlFor="signedBy" className="form-label">

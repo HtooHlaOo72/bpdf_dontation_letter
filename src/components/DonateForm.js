@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import uuid from 'react-uuid';
+import uuid from "react-uuid";
 
 import { useFormik } from "formik";
 
@@ -21,7 +21,7 @@ const validate = (values) => {
     errors.amount = "Must be 1 or more";
   }
 
-  if (!values.topic) {
+  if (values.defaultTopic==="" && values.topic.length<=0) {
     errors.topic = "Required";
   } else if (values.topic.length > 600) {
     errors.topic = "Must be less than 600 characters";
@@ -37,26 +37,29 @@ const validate = (values) => {
 };
 
 function DonateForm(props) {
-
-  const history=useHistory();
+  const history = useHistory();
   //export component as image or pdf
-  useEffect(()=>{
-    if(!props.auth.isAuthenticated){
-      history.push('/login');
+  useEffect(() => {
+    if (!props.auth.isAuthenticated) {
+      history.push("/login");
     }
-  },[]);
+  }, []);
   const formik = useFormik({
     initialValues: {
       donor: "",
       amount: "",
       topic: "",
       signedBy: "",
+      defaultTopic:"",
     },
     validate,
-    onSubmit: async (values) => {
-      values.serialNo=await uuid();
-      await props.createDonation(values,props.auth.token);
-      history.push('/dashboard')
+    onSubmit: (values) => {
+      let {donor,amount,signedBy,topic,defaultTopic}=values;
+      topic=(defaultTopic)?defaultTopic:topic;
+      const serialNo =uuid();
+      const newDonation={donor,amount,topic,signedBy,serialNo};
+      props.createDonation(newDonation, props.auth.token);
+      history.push("/dashboard");
     },
   });
 
@@ -125,7 +128,24 @@ function DonateForm(props) {
             </div>
             <div className="mb-3">
               <label htmlFor="signedBy" className="form-label">
-                တာ၀န်ခံအမည်
+              အကြောင်းအရာ
+              </label>
+              <select className="form-select" 
+                      aria-label="Default select example"
+                      id="defaultTopic"
+                      name="defaultTopic"
+                      value={formik.values.defaultTopic}
+                      onChange={formik.handleChange}
+                      >
+                <option value={formik.values.topic}>{formik.values.topic}</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="signedBy" className="form-label">
+                အကြောင်းအရာ
               </label>
               <input
                 type="text"

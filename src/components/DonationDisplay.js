@@ -12,24 +12,33 @@ function DonatonDisplay(props) {
       <div className="col-12 col-sm-7 col-md-7 col-lg-7">
         <p>{donation.donor}</p>
         <p>{donation._id}</p>
-        <p>{donation.createdAt.split("T")[0]}</p>
+        <p>{donation?.createdAt?.split("T")[0]}</p>
       </div>
-      <div className="col-12 col-sm-5 col-md-5 col-lg-5 btn-box">
-        <button className="btn btn-info dashboard-btn mx-2" onClick={switchDetail}>
+      <div className="col-12 col-sm-5 col-md-5 col-lg-5 d-flex justify-content-center  ">
+        <div className='row gx-1 gy-1'>
+        <button className="btn btn-info col-6" onClick={switchDetail}>
           detail
         </button>
         <button
-          className="btn btn-light dashboard-btn mx-2"
+          className="btn btn-light col-6"
           onClick={() => props.updateClick(donation)}
         >
           edit
         </button>
         <button
-          className="btn btn-danger dashboard-btn mx-2"
+          className="btn btn-danger col-6"
           onClick={() => props.deleteClick(donation._id)}
         >
           delete
         </button>
+        <button
+          className="btn btn-success col-6"
+          onClick={() => {}}
+        >
+          Generate
+        </button>
+        </div>
+        
       </div>
 
       {showDetail && (
@@ -47,7 +56,7 @@ function DonatonDisplay(props) {
           <div className="row">
             <div className="col-5">အကြောင်းအရာ</div>
             <div className="col-2">=</div>
-            <div className="col-5">{donation.topic}</div>
+            <div className="col-5"><p>{donation.topic}</p></div>
           </div>
           <div className="row">
             <div className="col-5">တာ၀န်ခံ</div>
