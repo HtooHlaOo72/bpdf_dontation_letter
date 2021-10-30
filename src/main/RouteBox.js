@@ -29,9 +29,8 @@ function RouteBox(props) {
         <Route exact path="/login" component={LoginForm} />
         <Route exact path="/donate" render={(props)=><DonateForm data={data} setData={setData} />} />
         <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/export" component={MustExport} />
         <Route exact path="/edit" component={EditForm} />
-
-
       </Switch>
     </Router>
   );

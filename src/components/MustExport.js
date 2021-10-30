@@ -12,14 +12,14 @@ const MustExport = ({ name, amount, responsibleBy, reason }) => {
   const toExport = useRef();
   const exportComponent = () => {
     const file_name = uuid();
-    exportComponentAsJPEG(toExport,{fileName:file_name});
+    exportComponentAsPDF(toExport,{fileName:file_name, html2CanvasOptions:{w:1200,h:1600,unit:"px"}});
   };
   useEffect(exportComponent, []);
   console.log(name, amount);
   return (
     <div className="must-export" ref={toExport}>
       <img src={Logo} className="certi-logo" alt="..."/>
-      <h1 className="certi-header">Bago People Defence Force - BPDF</h1>
+      <h1 className="certi-header">Bago People Defense Force - BPDF</h1>
       <h2 className="certi-sub-header">မှတ်တမ်းတင်ဂုဏ်ပြုလွှာ</h2>
       <div className="certi-date-box">
         <span>ရက်စွဲ။{"    "}။</span>
@@ -33,7 +33,7 @@ const MustExport = ({ name, amount, responsibleBy, reason }) => {
         <p className="whole-reason">
           {reason
             ? reason
-            :  `ပြည်သူလူထုအား စစ်ကောင်စီမှ လက်နက်ကိုင်ကာ အကြမ်းဖက်နေသော\n စစ်အာဏာရှင်စနစ်ကျရှုံးရေးအတွက် 
+            :  `ပြည်သူလူထုအား စစ်ကောင်စီမှ လက်နက်ကိုင်ကာ အကြမ်းဖက်နေသော စစ်အာဏာရှင်စနစ်ကျရှုံးရေးအတွက် 
                 အသက်နှင့်ရင်းကာ တိုက်ပွဲ၀င်လျှက်ရှိသော ပြည်သူ့ကာကွယ်ရေးတပ်ဖွဲ့ (ပဲခူးတိုင်း) BPDF အတွက်လိုအပ်သော နေရာများတွင်
                 အသုံးပြုနိုင်ရန်`
             }
