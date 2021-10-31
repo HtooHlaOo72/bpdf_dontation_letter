@@ -31,7 +31,16 @@ const validate = (values) => {
     } else if (values.signedBy.length > 50) {
       errors.signedBy = "Must be 50 characters or less";
     }
-  
+    if (!values.unit) {
+      errors.unit = "Required";
+    } else if (values.unit.length > 50) {
+      errors.unit = "Must be 50 characters or less";
+    }
+    if (!values.amountText) {
+      errors.amountText = "Required";
+    } else if (values.amountText > 50) {
+      errors.amountText = "Must be 50 characters or less";
+    }
     return errors;
   };
 
@@ -54,6 +63,8 @@ function EditForm(props) {
       amount: props.donation.amount,
       topic: props.donation.topic,
       signedBy: props.donation.signedBy,
+      unit: props.donation.unit,
+      amountText: props.donation.amountText,
     },
     validate,
     onSubmit: (values) => {
@@ -115,6 +126,47 @@ function EditForm(props) {
               )}
             </div>
             <div className="mb-3">
+              <label htmlFor="amountText" className="form-label">
+                ငွေပမာဏ(စာဖြင့်)
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="amountText"
+                name="amountText"
+                placeholder="မြန်မာကျပ်ငွေ တစ်သောင်းတိတိ"
+                value={formik.values.amountText}
+                onChange={formik.handleChange}
+              />
+              {formik.errors.amountText && (
+                <div className="alert alert-secondary" role="alert">
+                  {formik.errors.amountText}
+                </div>
+              )}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="signedBy" className="form-label">
+                ငွေယူနစ်
+              </label>
+              <select className="form-select" 
+                      aria-label="Default select example"
+                      id="unit"
+                      name="unit"
+                      value={formik.values.unit}
+                      onChange={formik.handleChange}
+                      >
+                <option value="MMK">MMK</option>
+                <option value="USD">USD</option>
+                <option value="THB">THB</option>
+                
+              </select>
+              {formik.errors.unit && (
+                <div className="alert alert-secondary" role="alert">
+                  {formik.errors.unit}
+                </div>
+              )}
+            </div>
+            <div className="mb-3">
               <label htmlFor="topic" className="form-label">
                 အကြောင်းအရာ
               </label>
@@ -145,9 +197,10 @@ function EditForm(props) {
                       onChange={formik.handleChange}
                       >
                 <option value={formik.values.topic}>{formik.values.topic}</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="လိုအပ်သောနေရာများတွင် အသုံးပြုနိုင်ရန်">လိုအပ်သောနေရာများတွင် အသုံးပြုနိုင်ရန်</option>
+                <option value="လိုအပ်သောစားနပ်ရိက္ခာများ ၀ယ်ယူနိုင်ရန်">လိုအပ်သောစားနပ်ရိက္ခာများ ၀ယ်ယူနိုင်ရန်</option>
+                <option value="လိုအပ်သောလက်နက်ခဲယမ်းများ ၀ယ်ယူနိုင်ရန်">လိုအပ်သောလက်နက်ခဲယမ်းများ ၀ယ်ယူနိုင်ရန်</option>
+                <option value="လိုအပ်သော ဆေး၀ါးများ၀ယ်ယူနိုင်ရန်">လိုအပ်သော ဆေး၀ါးများ၀ယ်ယူနိုင်ရန်</option>
               </select>
             </div>
             <div className="mb-3">

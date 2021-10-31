@@ -32,6 +32,16 @@ const validate = (values) => {
   } else if (values.signedBy.length > 50) {
     errors.signedBy = "Must be 50 characters or less";
   }
+  if (!values.unit) {
+    errors.unit = "Required";
+  } else if (values.unit.length > 50) {
+    errors.unit = "Must be 50 characters or less";
+  }
+  if (!values.amountText) {
+    errors.amountText = "Required";
+  } else if (values.amountText > 50) {
+    errors.amountText = "Must be 50 characters or less";
+  }
 
   return errors;
 };
@@ -51,13 +61,17 @@ function DonateForm(props) {
       topic: "",
       signedBy: "",
       defaultTopic:"",
+      unit:"MMK",
+      amountText:""
+
     },
     validate,
     onSubmit: (values) => {
-      let {donor,amount,signedBy,topic,defaultTopic}=values;
+      
+      let {donor,amount,signedBy,topic,unit,amountText,defaultTopic}=values;
       topic=(defaultTopic)?defaultTopic:topic;
       const serialNo =uuid();
-      const newDonation={donor,amount,topic,signedBy,serialNo};
+      const newDonation={donor,amount,topic,signedBy,serialNo,unit,amountText};
       props.createDonation(newDonation, props.auth.token);
       history.push("/dashboard");
     },
@@ -108,11 +122,52 @@ function DonateForm(props) {
               )}
             </div>
             <div className="mb-3">
+              <label htmlFor="amountText" className="form-label">
+                ငွေပမာဏ(စာဖြင့်)
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="amountText"
+                name="amountText"
+                placeholder="မြန်မာကျပ်ငွေ တစ်သောင်းတိတိ"
+                value={formik.values.amountText}
+                onChange={formik.handleChange}
+              />
+              {formik.errors.amountText && (
+                <div className="alert alert-secondary" role="alert">
+                  {formik.errors.amountText}
+                </div>
+              )}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="signedBy" className="form-label">
+                ငွေယူနစ်
+              </label>
+              <select className="form-select" 
+                      aria-label="Default select example"
+                      id="unit"
+                      name="unit"
+                      value={formik.values.unit}
+                      onChange={formik.handleChange}
+                      >
+                <option value="MMK">MMK</option>
+                <option value="USD">USD</option>
+                <option value="THB">THB</option>
+                
+              </select>
+              {formik.errors.unit && (
+                <div className="alert alert-secondary" role="alert">
+                  {formik.errors.unit}
+                </div>
+              )}
+            </div>
+            <div className="mb-3">
               <label htmlFor="topic" className="form-label">
-                အကြောင်းအရာ
+                အကြောင်းအရာ(အခြား)
               </label>
               <textarea
-                placeholder="စစ်အာဏာရှင်စနစ်အမြစ်ပြတ်ပပျောက်ရေး"
+                placeholder="လိုအပ်သော..."
                 className="form-control"
                 name="topic"
                 id="topic"
@@ -128,7 +183,7 @@ function DonateForm(props) {
             </div>
             <div className="mb-3">
               <label htmlFor="signedBy" className="form-label">
-              အကြောင်းအရာ
+              အကြောင်းအရာ(မူရင်း)
               </label>
               <select className="form-select" 
                       aria-label="Default select example"
@@ -138,14 +193,20 @@ function DonateForm(props) {
                       onChange={formik.handleChange}
                       >
                 <option value={formik.values.topic}>{formik.values.topic}</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="လိုအပ်သောနေရာများတွင် အသုံးပြုနိုင်ရန်">လိုအပ်သောနေရာများတွင် အသုံးပြုနိုင်ရန်</option>
+                <option value="လိုအပ်သောစားနပ်ရိက္ခာများ ၀ယ်ယူနိုင်ရန်">လိုအပ်သောစားနပ်ရိက္ခာများ ၀ယ်ယူနိုင်ရန်</option>
+                <option value="လိုအပ်သောလက်နက်ခဲယမ်းများ ၀ယ်ယူနိုင်ရန်">လိုအပ်သောလက်နက်ခဲယမ်းများ ၀ယ်ယူနိုင်ရန်</option>
+                <option value="လိုအပ်သော ဆေး၀ါးများ၀ယ်ယူနိုင်ရန်">လိုအပ်သော ဆေး၀ါးများ၀ယ်ယူနိုင်ရန်</option>
               </select>
+              {formik.errors.defaultTopic && (
+                <div className="alert alert-secondary" role="alert">
+                  {formik.errors.defaultTopic}
+                </div>
+              )}
             </div>
             <div className="mb-3">
               <label htmlFor="signedBy" className="form-label">
-                အကြောင်းအရာ
+                တာဝန်ခံ
               </label>
               <input
                 type="text"

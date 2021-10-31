@@ -84,7 +84,6 @@
 }
 
 .certi-text{
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -94,8 +93,6 @@
     background-image: url("./utils/images/bpdf_bg.png");
     background-size:cover ;
     font-size: 12px;
-    
-    
 }
 
 .foot-box{
@@ -115,6 +112,7 @@
     background-color: black;
     color:#ffc107;
 }
+
 .login-form button:hover{
     font-weight: bold;
     border:2px solid black;
@@ -145,40 +143,30 @@
 .login-input{
     font-size: 20px;
 }
-.item-side-bar{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    
-}
-.item-side-bar,.item{
-    
-    border-bottom-right-radius: 15px;
-}
-.item{
-    border-top-left-radius: 15px;
-}
+
 .more-btn{
-    width:200px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    margin-right:-12px;
-    height:50px;
+   width:50px;
+   height:50px;
+   border-radius: 0px;
+   border:2px solid black;
+   color:#ffffff;
+   background-color: black;
 }
 .more-btn-box{
-    flex:2;
+    padding:0;
+    position: relative;
+}
+.three-more{
     display: flex;
     flex-direction: column;
-    justify-content: end;
-    align-items: flex-end;
     position: absolute;
-    right:8em;
-    
+    right:10px;
+    top:55px;
 }
-.more-btn-box button,.more-btn button{
-    width:90px ;
-    border-radius: 15px;
+.three-more-btn{
+    width: 80px;
+    color:#ffc107;
+    background-color: black;
 }
 .donation-item{
    margin-bottom: 5px;

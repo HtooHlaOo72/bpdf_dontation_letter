@@ -37,16 +37,12 @@ function Dashboard(props){
     const sortByAmount=()=>{
         props.sortDonations();
     }
-    const generateClick=()=>{
-        console.log("Generate docx")
+    const generateClick=(donation)=>{
+        console.log("Generate...")
         generateDocx("test.docx");
     }
     return (
-        <div className='container-fluid'>
-            
-            {
-            (props.donations)?
-            <div className='container'>
+        <div className='container'>
                 <div className='row mt-4'>
                     <div className='col-12 col-sm-8 col-md-8 col-lg-8'>
                         <h1 className='dashboard-header'>Dashboard</h1>
@@ -57,25 +53,21 @@ function Dashboard(props){
                     <div className='col-6 col-sm-2 col-md-2 col-lg-2' >
                         <button className='btn btn-dark mx-2' onClick={sortByAmount}>Sort By Amount</button>
                     </div>
-                    
                 </div>
                 
-                {props.donations.map((donation)=>
-                <>
-                <DonationDisplay 
-                    key={donation._id} 
-                    donation={donation} 
-                    deleteClick={deleteClick}
-                    updateClick={updateClick} 
-                    generateClick={generateClick}
-                />
-                <hr />
-                </>
-                )}
+                {
+                    props.donations.map(
+                        (donation)=>
+                        <DonationDisplay 
+                            key={donation._id} 
+                            donation={donation} 
+                            deleteClick={deleteClick}
+                            updateClick={updateClick} 
+                            generateClick={generateClick}
+                        />
+                    )
+                }
             </div>
-            :<p className='bg-dark'>Loading...</p>
-            }
-        </div>
     );
 }
 const mapStateToProps=(state)=>({

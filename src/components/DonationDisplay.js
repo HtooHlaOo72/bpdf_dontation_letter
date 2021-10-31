@@ -1,89 +1,58 @@
 import { useState } from "react";
-import { deleteDonation } from "../actions/donationActions";
+import convertDate from "../utils/convertDate";
 import { connect } from "react-redux";
+
+const Item=({property,value})=><div className='row my-2'>
+<div className='col-5'>{property}</div>
+<div className='col-2'>=</div>
+<div className='col-5'>{value}</div>
+</div>
 function DonatonDisplay(props) {
+  
   const { donation } = props;
   const [showDetail, setShowDetail] = useState(false);
   const [btnOpen, setBtnOpen] = useState(false);
   const switchDetail = () => {
-    setBtnOpen(false);
     setShowDetail(!showDetail);
   };
   return (
-    <div className="row bg-warning my-3 item">
-      <div className="col-12 col-sm-7 col-md-7 col-lg-7">
-        <p>{donation.donor}</p>
-        <p>{donation._id}</p>
-        <p>{donation?.createdAt?.split("T")[0]}</p>
-      </div>
-      <div className="col-12 col-sm-5 col-md-5 col-lg-5 item-side-bar">
-      {btnOpen && (
-            <div className="more-btn-box">
-              <button className="btn btn-info " onClick={switchDetail}>
-                {(showDetail)?"Close Detail":"Detail"}
-              </button>
-              <button
-                className="btn btn-light "
-                onClick={() => props.updateClick(donation)}
-              >
-                edit
-              </button>
-              <button
-                className="btn btn-danger"
-                onClick={() => props.deleteClick(donation._id)}
-              >
-                delete
-              </button>
-              <button
-                className="btn btn-success"
-                onClick={() => {
-                  props.generateClick();
-                }}
-              >
-                Generate
-              </button>
-            </div>
-          )}
-        <div className="more-btn">
-          <button className="btn btn-info more" onClick={() => setBtnOpen(!btnOpen)}>
-            More
-          </button>
+    <div className="row my-3 item-box">
+      <div className='col-8 bg-dark'>
+        <div className='col-12 bg-success'>
+          <Item property={'လှူတန်းသူ'} value={donation.donor} />
+          <Item property={'ငွေပမာဏ'} value={donation.amount} />
+          <Item property={'ရက်စွဲ'} value={convertDate(donation.createdAt)} />
+          {
+            showDetail
+            &&
+            <>
+              <Item property={'အကြောင်းအရာ'} value={donation.topic} />
+              <Item property={'တာဝန်ခံ'} value={donation.signedBy} />
+              <Item property={'ငွေပမာဏ(စာဖြင့်)'} value={donation.donor} />
+            </>
+            
+          }
+          
         </div>
       </div>
-
-      {showDetail && (
-        <div className="container">
-          <div className="row donation-item">
-            <div className="col-5">လှူတန်းသူ</div>
-            <div className="col-2">=</div>
-            <div className="col-5">{donation.donor}</div>
-          </div>
-          <div className="row donation-item">
-            <div className="col-5">ငွေပမာဏ</div>
-            <div className="col-2">=</div>
-            <div className="col-5">{donation.amount}</div>
-          </div>
-          <div className="row donation-item">
-            <div className="col-5">အကြောင်းအရာ</div>
-            <div className="col-2">=</div>
-            <div className="col-5">
-              <p>{donation.topic}</p>
-            </div>
-          </div>
-          <div className="row donation-item">
-            <div className="col-5">တာ၀န်ခံ</div>
-            <div className="col-2">=</div>
-            <div className="col-5">{donation.signedBy}</div>
-          </div>
-          <div className="row donation-item">
-            <div className="col-5">Serial Number</div>
-            <div className="col-2">=</div>
-            <div className="col-5">{donation.serialNo}</div>
-          </div>
+      <div className='col-4 bg-danger d-flex justify-content-end more-btn-box'>
+        <button className='btn btn-light more-btn' onClick={()=>{setBtnOpen(!btnOpen)}}>///</button>
+        {
+        (btnOpen)&&
+        <div className='three-more'>
+          <button className='btn three-more-btn'>Edit</button>
+          <button className='btn three-more-btn'>Generate</button>
+          <button className='btn three-more-btn'>Delete</button>
         </div>
-      )}
+        }
+        
+      </div>
+      <div  className='col-12 bg-info d-flex justify-content-center' 
+            onClick={()=>{switchDetail()}}>
+              <button className='btn btn-dark'>See More</button>
+      </div>
     </div>
   );
 }
 
-export default connect(null, { deleteDonation })(DonatonDisplay);
+export default DonatonDisplay;
