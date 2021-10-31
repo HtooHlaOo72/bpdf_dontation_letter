@@ -2,7 +2,7 @@ import { LOGIN, LOGOUT } from "./types";
 import axios from "axios";
 export const loginUser = (username, password) => (dispatch) => {
   axios
-    .post("http://localhost:3000/users/login", { username, password })
+    .post("http://localhost:5000/users/login", { username, password })
     .then((auth) => {
       dispatch({
           type:LOGIN,

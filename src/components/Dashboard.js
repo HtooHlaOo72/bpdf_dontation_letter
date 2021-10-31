@@ -1,12 +1,10 @@
 import {connect} from 'react-redux';
-import {fetchDonations,deleteDonation,updateDonation,sortDonations,setEditData} from '../actions/donationActions';
-import {useEffect,useState} from 'react';
+import {fetchDonations,deleteDonation,updateDonation,sortDonations,setEditData,setGenerateData} from '../actions/donationActions';
+import {useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import DonationDisplay from './DonationDisplay';
 
-import {generateDocx} from '../utils/generateDocx';
 function Dashboard(props){
-    const [btnOpen,setBtnOpen]=useState(false);
     const history=useHistory();
     useEffect(
         ()=>{
@@ -15,7 +13,6 @@ function Dashboard(props){
             }else{
                 props.fetchDonations(props.auth.token);
             }
-            
         },[]
     );
     const deleteClick=(_id)=>{
@@ -37,9 +34,9 @@ function Dashboard(props){
     const sortByAmount=()=>{
         props.sortDonations();
     }
-    const generateClick=(donation)=>{
-        console.log("Generate...")
-        generateDocx("test.docx");
+    const generateClick=async (donation)=>{
+        await props.setGenerateData(donation);
+        history.push('/export')
     }
     return (
         <div className='container'>
@@ -48,15 +45,21 @@ function Dashboard(props){
                         <h1 className='dashboard-header'>Dashboard</h1>
                     </div>
                     <div className='col-6 col-sm-2 col-md-2 col-lg-2' >
-                        <button className='btn btn-primary mx-2' onClick={createClick}>Create New</button>
+                        <button className='btn create-btn' onClick={createClick}>Create New</button>
                     </div>
                     <div className='col-6 col-sm-2 col-md-2 col-lg-2' >
-                        <button className='btn btn-dark mx-2' onClick={sortByAmount}>Sort By Amount</button>
+                        <button className='btn del-btn' onClick={sortByAmount}>Filter By Date</button>
                     </div>
                 </div>
                 
                 {
-                    props.donations.map(
+                    props.donations.sort(
+                        (a,b)=>{
+                            let aDate=new Date(a.createdAt.split("T")[0]);
+                            let bDate=new Date(b.createdAt.split("T")[0]);
+                            return aDate-bDate;
+                          }
+                    ).map(
                         (donation)=>
                         <DonationDisplay 
                             key={donation._id} 
@@ -74,4 +77,4 @@ const mapStateToProps=(state)=>({
     donations:state.donationList.donations,
     auth:state.auth
 });
-export default connect(mapStateToProps,{fetchDonations,sortDonations,updateDonation,deleteDonation,setEditData})(Dashboard);
+export default connect(mapStateToProps,{fetchDonations,sortDonations,updateDonation,deleteDonation,setEditData,setGenerateData})(Dashboard);

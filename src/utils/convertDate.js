@@ -8,7 +8,7 @@ export default function convertDate(dateText){//convert dd/mm/yyyy to Myanmar Da
     return dateResult;
 }
 
-function convertNumber(text){
+export function convertNumber(text){
     const number=['၀','၁','၂','၃','၄','၅','၆','၇','၈','၉'];
     text=text.split('').map((word)=>number[word]).join('');
     return text;

@@ -1,7 +1,7 @@
-import { FETCH_ALL, ADD_DONATION, DELETE_DONATION,UPDATE_DONATION, SET_EDIT_DATA, SORT_DONATIONS } from './types';
+import { FETCH_ALL, ADD_DONATION, DELETE_DONATION,UPDATE_DONATION, SET_EDIT_DATA,SET_GEN_DATA, SORT_DONATIONS } from './types';
 
 export const fetchDonations = (token) => dispatch => {
-  fetch('http://localhost:3000/donations',{
+  fetch('http://localhost:5000/donations',{
     headers: {
       'content-type': 'application/json',
       'Authorization':`Bearer ${token}`
@@ -17,7 +17,7 @@ export const fetchDonations = (token) => dispatch => {
 };
 
 export const createDonation = (newDonation,token) => dispatch => {
-  fetch('http://localhost:3000/donations', {
+  fetch('http://localhost:5000/donations', {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -40,7 +40,7 @@ export const createDonation = (newDonation,token) => dispatch => {
 
 export const updateDonation=(newData,token)=>dispatch=>{
   //make update request
-  fetch(`http://localhost:3000/donations/${newData._id}`, {
+  fetch(`http://localhost:5000/donations/${newData._id}`, {
     method: 'PUT',
     headers: {
       'content-type': 'application/json',
@@ -58,7 +58,7 @@ export const updateDonation=(newData,token)=>dispatch=>{
 }
 export const deleteDonation = (_id,token) => dispatch => {
   console.log(_id,token);
-  fetch(`http://localhost:3000/donations/${_id}`,{
+  fetch(`http://localhost:5000/donations/${_id}`,{
     method:"DELETE",
     headers: {
       'content-type': 'application/json',
@@ -79,6 +79,13 @@ export const deleteDonation = (_id,token) => dispatch => {
 export const setEditData=(donation)=>dispatch=>{
   dispatch({
     type:SET_EDIT_DATA,
+    payload:donation
+  })
+}
+
+export const setGenerateData=(donation)=>dispatch=>{
+  dispatch({
+    type:SET_GEN_DATA,
     payload:donation
   })
 }

@@ -1,11 +1,15 @@
 import { useState } from "react";
 import convertDate from "../utils/convertDate";
 import { connect } from "react-redux";
+import {AiFillCaretDown} from 'react-icons/ai';
+import {BiDotsVertical} from 'react-icons/bi';
+
 
 const Item=({property,value})=><div className='row my-2'>
 <div className='col-5'>{property}</div>
 <div className='col-2'>=</div>
 <div className='col-5'>{value}</div>
+<hr />
 </div>
 function DonatonDisplay(props) {
   
@@ -16,11 +20,11 @@ function DonatonDisplay(props) {
     setShowDetail(!showDetail);
   };
   return (
-    <div className="row my-3 item-box">
-      <div className='col-8 bg-dark'>
-        <div className='col-12 bg-success'>
+    <div className="row my-3  bg-warning item-box ">
+      <div className='col-8 my-2 '>
+        <div className='col-12 '>
           <Item property={'လှူတန်းသူ'} value={donation.donor} />
-          <Item property={'ငွေပမာဏ'} value={donation.amount} />
+          <Item property={'ငွေပမာဏ'} value={donation.amount+" "+donation.unit} />
           <Item property={'ရက်စွဲ'} value={convertDate(donation.createdAt)} />
           {
             showDetail
@@ -28,28 +32,32 @@ function DonatonDisplay(props) {
             <>
               <Item property={'အကြောင်းအရာ'} value={donation.topic} />
               <Item property={'တာဝန်ခံ'} value={donation.signedBy} />
-              <Item property={'ငွေပမာဏ(စာဖြင့်)'} value={donation.donor} />
+              <Item property={'ငွေပမာဏ(စာဖြင့်)'} value={donation.amountText} />
+              <Item property={'Serial Number'} value={donation.serialNo} />
             </>
             
           }
           
         </div>
       </div>
-      <div className='col-4 bg-danger d-flex justify-content-end more-btn-box'>
-        <button className='btn btn-light more-btn' onClick={()=>{setBtnOpen(!btnOpen)}}>///</button>
+      <div className='col-4 bg-warning d-flex justify-content-end more-btn-box'>
+        <div className='more-btn' onClick={()=>{setBtnOpen(!btnOpen)}}>
+          <BiDotsVertical />
+        </div>
         {
         (btnOpen)&&
         <div className='three-more'>
-          <button className='btn three-more-btn'>Edit</button>
-          <button className='btn three-more-btn'>Generate</button>
-          <button className='btn three-more-btn'>Delete</button>
+          <button className='btn three-more-btn' onClick={()=>props.updateClick(donation)}>Edit</button>
+          <button className='btn three-more-btn' onClick={()=>props.generateClick(donation)}>Generate</button>
+          <button className='btn three-more-del' onClick={()=>props.deleteClick(donation._id)}>Delete</button>
         </div>
         }
         
       </div>
-      <div  className='col-12 bg-info d-flex justify-content-center' 
-            onClick={()=>{switchDetail()}}>
-              <button className='btn btn-dark'>See More</button>
+      <div  className='col-12 bg-warning d-flex justify-content-center seemore-btn-box'>
+              <button className='btn  card-btn'
+                      onClick={()=>{switchDetail()}}
+              >See More <AiFillCaretDown /></button>
       </div>
     </div>
   );

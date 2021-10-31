@@ -4,12 +4,14 @@ import {
   UPDATE_DONATION,
   DELETE_DONATION,
   SET_EDIT_DATA,
+  SET_GEN_DATA,
   SORT_DONATIONS,
 } from "../actions/types";
 
 const initialState = {
   donations: [],
   donation: {},
+  donationGen:{}
 };
 
 export default function donationReducer(state = initialState, action) {
@@ -45,10 +47,19 @@ export default function donationReducer(state = initialState, action) {
         ...state,
         donation: action.payload,
       };
+    case SET_GEN_DATA:
+    return {
+      ...state,
+      donationGen: action.payload,
+    };
     case SORT_DONATIONS:
       return {
         ...state,
-        donations: [...state.donations.sort((a,b)=>a.amount-b.amount)],
+        donations: [...state.donations.sort((a,b)=>{
+          let aDate=new Date(a.createdAt.split("T")[0]);
+          let bDate=new Date(b.createdAt.split("T")[0]);
+          return aDate-bDate;
+        })],
       };
     default:
       return state;

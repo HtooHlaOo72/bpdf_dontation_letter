@@ -4,5 +4,6 @@ export const UPDATE_DONATION='UPDATE_DONATION';
 export const DELETE_DONATION = "DELETE_DONATION";
 export const SORT_DONATIONS="SORT_DONATIONS";
 export const SET_EDIT_DATA="SET_EDIT_DATA";
+export const SET_GEN_DATA='SET_GEN_DATA';
 export const LOGIN='LOGIN';
 export const LOGOUT="LOGOUT";

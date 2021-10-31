@@ -1,12 +1,24 @@
 import cx from "classnames";
-import { createRef } from "react";
+import { createRef,useEffect } from "react";
 import * as htmlToImage from "html-to-image";
 import Logo from "../utils/images/bpdf_logo.jpg";
 import css from "../sass/paper.module.sass";
-
+import {saveAs} from 'file-saver';
+import uuid from 'react-uuid';
+import {connect} from 'react-redux';
+import { useHistory } from "react-router";
+import convertDate, { convertNumber } from "../utils/convertDate";
 const Paper = (props) => {
+  let history=useHistory;
   const cert = createRef();
-
+  let {donor,amount,amountText,unit,signedBy,topic,createdAt,serialNo}=props.data;
+  amount=convertNumber(amount+'');
+  let date=convertDate(createdAt);
+  useEffect(()=>{
+      if(!props.auth.isAuthenticated) {
+        history.push('/login')
+      }
+  },[]);
   const handleInputBoxes = (e) => {
     var min = 100,
       max = 500,
@@ -43,7 +55,7 @@ const Paper = (props) => {
         };
   };
 
-  const saveAs = (blob, fileName) => {
+  const saveAss = (blob, fileName) => {
     var elem = window.document.createElement("a");
     elem.href = blob;
     elem.download = fileName;
@@ -67,7 +79,7 @@ const Paper = (props) => {
 
   const saveImage = () =>
     htmlToImage.toPng(cert.current, { pixelRatio: 1.5 }).then((data) => {
-      saveAs(data, prompt("Filename without extension"));
+      saveAs(data,uuid() );
     });
 
   return (
@@ -75,21 +87,17 @@ const Paper = (props) => {
       <div className="row h-100">
         <div className="col-md-8 mx-auto text-center d-flex justify-content-center align-items-center">
           <div ref={cert} id="paper" className={css.cert}>
-            <button
-              className={cx("btn btn-outline-dark", css.downloadBtn)}
-              onClick={saveImage}
-              data-html2canvas-ignore="true"
-            >
-              save
-            </button>
             <div className={css.heading}>
-              <img src={Logo} alt="Logo" />
+              <div style={{textAlign:"start",marginLeft:"20px"}}>
+                <img src={Logo} alt="Logo" onClick={saveImage}/>
+              </div>
+              
               <h1>Bago People Defense Force - BPDF</h1>
               <p className="lead fw-bolder mb-5">မှတ်တမ်းတင်ဂုဏ်ပြုလွှာ</p>
             </div>
             <div className={css.date}>
-              ရက်စွဲ ။{"  "}။
-              {props.date ? props.date : "အောက်တိုဘာလ၊ ၂၂ရက်၊၂၀၂၁ခုနှစ်"}
+              ရက်စွဲ။&nbsp;&nbsp;&nbsp;&nbsp;။
+              {date? date : "အောက်တိုဘာလ၊ ၂၂ရက်၊၂၀၂၁ခုနှစ်"}
             </div>
             <p className={css.maintext}>
               {"    "}
@@ -97,36 +105,36 @@ const Paper = (props) => {
               စစ်အာဏာရှင်စနစ်ကျရှုံးရေးအတွက် အသက်နှင့်ရင်းကာ
               တိုက်ပွဲ၀င်လျှက်ရှိသော<br/> ပြည်သူ့ကာကွယ်ရေးတပ်ဖွဲ့ (ပဲခူးတိုင်း){" "}
               <span className="fw-bolder">BPDF</span> အတွက်<br/>
-              {(props.topic)?props.topic:"လိုအပ်သော နေရာများတွင် အသုံးပြုနိုင်ရန်"}
+              {(topic)?topic:"လိုအပ်သော နေရာများတွင် အသုံးပြုနိုင်ရန်"}
               <br />
               <span className={css.student}>
                 <b>
                   {
-                    (props.donor)
-                    ?props.donor
+                    (donor)
+                    ?donor
                     :"မောင်အောင်အောင်"
                   }
                 </b>{" "}
                 မှ{" "}
                 <b>
                   {
-                    props.amount
-                    ?props.amount
+                    amount
+                    ?amount+"/-"
                     :"0"
                   }
                   {
                     " "
                   }
                   {
-                    props.unit
-                    ?props.unit
+                    unit
+                    ?unit
                     :"MMK"
                   }
                   <br />
                   {
-                    props.amountText
-                    ?props.amountText
-                    :"မြန်မာကျပ်ငွေ ဆယ်သိန်းတိတိ"
+                    amountText
+                    ?`(${amountText})`
+                    :"(မြန်မာငွေကျပ် ဆယ်သိန်းတိတိ)"
                   }
                 </b>
               </span>
@@ -135,14 +143,18 @@ const Paper = (props) => {
               မှတ်တမ်းတင်အပ်ပါသည်။
             </p>
             <div className={css.teacher}>
-              <h6>တာဝန်ခံ({props.signedBy?props.signedBy:"ရဲနောင်"})</h6>
+              <h6>တာဝန်ခံ({signedBy?signedBy:"ရဲနောင်"})</h6>
               <p>Bago People Defense Force-BPDF</p>
             </div>
+            <h6 className='uniq-id my-5'>serial-no-{serialNo}</h6>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
-export default Paper;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  data:state.donationList.donationGen
+});
+export default connect(mapStateToProps,null)(Paper);
