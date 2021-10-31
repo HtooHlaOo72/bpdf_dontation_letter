@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import { useFormik } from "formik";
@@ -36,11 +36,14 @@ const validate = (values) => {
   };
 
 function EditForm(props) {
-
+  const [loading,setLoading]=useState(false);
+  useEffect(()=>{
+    setLoading(false);
+  },[props.auth.error]);
   const history=useHistory();
   //export component as image or pdf
   useEffect(()=>{
-    if(!props.auth.isAuthenticated){
+    if(!props.auth.isAuthenticated  && !(props.donation.donor && props.donation.amount && props.donation.topic && props.donation.signedBy)){
       history.push('/login');
     }
 
@@ -58,8 +61,11 @@ function EditForm(props) {
       topic = defaultTopic ? defaultTopic : topic;
       const newDonation = { donor, amount, topic, signedBy };
       const newData = { ...props.donation, ...newDonation };
+      setLoading(true);
+      
       props.updateDonation(newData, props.auth.token);
-      history.push("/dashboard");
+      setTimeout(()=>{history.push("/dashboard");},2000)
+      
     },
     
   });
@@ -163,8 +169,8 @@ function EditForm(props) {
                 </div>
               )}
             </div>
-            <button type="submit" className="btn btn-primary">
-              Submit
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+            {(loading)?"Loading...":"Submit"}
             </button>
           </form>
         </div>

@@ -4,7 +4,6 @@ export const loginUser = (username, password) => (dispatch) => {
   axios
     .post("http://localhost:3000/users/login", { username, password })
     .then((auth) => {
-        console.log('ok')
       dispatch({
           type:LOGIN,
           payload:auth.data

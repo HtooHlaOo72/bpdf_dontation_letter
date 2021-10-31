@@ -1,13 +1,13 @@
 import {connect} from 'react-redux';
 import {fetchDonations,deleteDonation,updateDonation,sortDonations,setEditData} from '../actions/donationActions';
-import {useEffect} from 'react';
+import {useEffect,useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import DonationDisplay from './DonationDisplay';
 
 import {generateDocx} from '../utils/generateDocx';
 function Dashboard(props){
+    const [btnOpen,setBtnOpen]=useState(false);
     const history=useHistory();
-    
     useEffect(
         ()=>{
             if(!props.auth.isAuthenticated) {
@@ -49,7 +49,7 @@ function Dashboard(props){
             <div className='container'>
                 <div className='row mt-4'>
                     <div className='col-12 col-sm-8 col-md-8 col-lg-8'>
-                        <h1>Dashboard</h1>
+                        <h1 className='dashboard-header'>Dashboard</h1>
                     </div>
                     <div className='col-6 col-sm-2 col-md-2 col-lg-2' >
                         <button className='btn btn-primary mx-2' onClick={createClick}>Create New</button>
@@ -61,6 +61,7 @@ function Dashboard(props){
                 </div>
                 
                 {props.donations.map((donation)=>
+                <>
                 <DonationDisplay 
                     key={donation._id} 
                     donation={donation} 
@@ -68,6 +69,8 @@ function Dashboard(props){
                     updateClick={updateClick} 
                     generateClick={generateClick}
                 />
+                <hr />
+                </>
                 )}
             </div>
             :<p className='bg-dark'>Loading...</p>

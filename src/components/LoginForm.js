@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useState} from "react";
 import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
@@ -6,30 +6,48 @@ import { loginUser } from "../actions/authActions";
 
 function LoginForm(props) {
   const history = useHistory();
+  const [loading,setLoading]=useState(false);
   useEffect(() => {
-    console.log("authentication changed...");
+    setLoading(false);
+    console.log("auth change")
     if(props.auth.isAuthenticated)  history.push('/dashboard');
-   
-
+    
   }, [props.auth.isAuthenticated]);
+  useEffect(()=>{
+    setLoading(false);
+  },[props.auth.error]);
+  const validate=(values)=>{
+    const errors = {};
+    if (!values.username) {
+      errors.username = "Required";
+    } else if (values.username.length > 30) {
+      errors.username = "Must be 30 characters or less";
+    }
+    if (!values.password) {
+      errors.password = "Required";
+    } else if (values.password.length > 30) {
+      errors.password = "Must be 30 characters or less";
+    }
+    return errors;
+  }
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
-
+    validate,
     onSubmit: async (values) => {
       const { username, password } = await values;
+      await setLoading(true);
       await props.loginUser(username, password);
-      
     },
   });
 
   return (
-    <div className="container bg-danger login-box">
-      <form onSubmit={formik.handleSubmit} className="mt-5 login-form">
-        <h1 className="">Login</h1>
-        <div className="mb-3">
+    <div className="container login-form">
+      <form onSubmit={formik.handleSubmit} className="mt-5 py-3">
+        <h1 className="mt-3">Login</h1>
+        <div className="mb-3 login-input">
           <label htmlFor="username" className="form-label">
             Username:
           </label>
@@ -40,10 +58,16 @@ function LoginForm(props) {
             name="username"
             placeholder="admin"
             value={formik.values.username}
+            onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-          />
+          />{
+            (formik.errors.username)&&
+            <div className="alert alert-danger login-input" role="alert">
+              {formik.errors.username}
+            </div>
+            }
         </div>
-        <div className="mb-3">
+        <div className="mb-3 login-input">
           <label htmlFor="password" className="form-label">
             Password:
           </label>
@@ -59,12 +83,12 @@ function LoginForm(props) {
         </div>
         {
         (props.auth.error)&&
-        <div className="alert alert-secondary" role="alert">
+        <div className="alert alert-danger login-input" role="alert">
           Invalid username or password
         </div>
         }
-        <button type="submit" className="btn btn-warning">
-          Submit
+        <button type="submit" className="btn" disabled={loading}>
+          {(loading)?"Loading...":"Submit"}
         </button>
       </form>
       <hr />

@@ -11,6 +11,8 @@ import { fetchDonations } from "../actions/donationActions";
 import {connect} from 'react-redux';
 import Dashboard from "../components/Dashboard";
 import EditForm from "../components/EditForm";
+import Paper from "../components/Paper";
+import NoMatch from "../components/NoMatch";
 function RouteBox(props) {
   const [data,setData]=useState({
     name:'',
@@ -23,15 +25,26 @@ function RouteBox(props) {
   },[])
   return (
     <Router>
-        <Link to='/login'></Link>
+      <div className='container'>
+        <div className='row'>
+          <header className='col-12 py-3 home-header mb-2'>
+            <Link to='/' className='nav-header' >
+              <h1 className=''>Donation to Bago PDF</h1>
+            </Link>
+            
+          </header>
+        </div>
+      </div>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={LoginForm} />
         <Route exact path="/donate" render={(props)=><DonateForm data={data} setData={setData} />} />
         <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/export" component={MustExport} />
+        <Route exact path="/export" component={Paper} />
         <Route exact path="/edit" component={EditForm} />
+        <Route exact path="*" component={NoMatch} />
       </Switch>
+      
     </Router>
   );
 }

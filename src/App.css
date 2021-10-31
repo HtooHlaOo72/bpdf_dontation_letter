@@ -9,32 +9,41 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    background-color: #ffc107;
+}
+.login-form{
+    background-color: royalblue;
 }
 .home-text{
-    font-size: 35px;
+    color:rgb(0, 0, 0);
+    font-size: 30px;
     position:static;
     top:40%;
 }
 .home-btn{
+    color:#ffc107;
     border-radius:15px;
+    background-color: black;
     width: 200px;
+}
+.home-btn:hover{
+    color:black;
+    background-color: #ffc107;
+    border:3px solid black;
 }
 .home-header{
     justify-self: flex-start;
-    font-size: 25px;
+    font-size: 2vw;
     border-radius: 10px;
     padding-left: 0;
     padding-right: 0;
+    color:#ffc107;
+    background-color: black;
 }
 .home-header h1{
     text-align: center;
 }
-.login-box{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    
-}
+
 .must-export{
     width:400px;
     height:600px;
@@ -98,9 +107,19 @@
 }
 .login-form{
     width: 70%;
-    
+    background-color: #ffc107;
     margin-left: auto;
     margin-right: auto;
+}
+.login-form button{
+    background-color: black;
+    color:#ffc107;
+}
+.login-form button:hover{
+    font-weight: bold;
+    border:2px solid black;
+    background-color: #ffc107;
+    color:black;
 }
 .btn-box{
     display: flex;
@@ -111,6 +130,58 @@
 .dashboard-btn{
     flex:1;
     min-width:80px;
+}
+.nav-header{
+    text-decoration: none;
+    color:#ffc107;
+}
+.nav-header:hover{
+    text-decoration: none;
+    color:#ffc107;
+}
+.dashboard-header{
+    font-size:30px;
+}
+.login-input{
+    font-size: 20px;
+}
+.item-side-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    
+}
+.item-side-bar,.item{
+    
+    border-bottom-right-radius: 15px;
+}
+.item{
+    border-top-left-radius: 15px;
+}
+.more-btn{
+    width:200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right:-12px;
+    height:50px;
+}
+.more-btn-box{
+    flex:2;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: flex-end;
+    position: absolute;
+    right:8em;
+    
+}
+.more-btn-box button,.more-btn button{
+    width:90px ;
+    border-radius: 15px;
+}
+.donation-item{
+   margin-bottom: 5px;
 }
 @media (min-width: 576px) {
 
