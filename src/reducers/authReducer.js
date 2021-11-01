@@ -1,4 +1,4 @@
-import { LOGIN,LOGOUT} from '../actions/types';
+import { LOGIN} from '../actions/types';
 
 const initialState = {
   isAuthenticated:false,

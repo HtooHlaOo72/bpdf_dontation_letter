@@ -1,7 +1,7 @@
 import { FETCH_ALL, ADD_DONATION, DELETE_DONATION,UPDATE_DONATION, SET_EDIT_DATA,SET_GEN_DATA, SORT_DONATIONS } from './types';
 
 export const fetchDonations = (token) => dispatch => {
-  fetch('http://localhost:5000/donations',{
+  fetch(process.env.REACT_APP_CRUD_URL,{
     headers: {
       'content-type': 'application/json',
       'Authorization':`Bearer ${token}`
@@ -13,11 +13,11 @@ export const fetchDonations = (token) => dispatch => {
         type: FETCH_ALL,
         payload: donations
       })
-    );
+    ).catch((e)=>{console.log("error in fetching data")})
 };
 
 export const createDonation = (newDonation,token) => dispatch => {
-  fetch('http://localhost:5000/donations', {
+  fetch(process.env.REACT_APP_CRUD_URL, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -40,7 +40,7 @@ export const createDonation = (newDonation,token) => dispatch => {
 
 export const updateDonation=(newData,token)=>dispatch=>{
   //make update request
-  fetch(`http://localhost:5000/donations/${newData._id}`, {
+  fetch(`${process.env.REACT_APP_CRUD_URL}/${newData._id}`, {
     method: 'PUT',
     headers: {
       'content-type': 'application/json',
@@ -58,7 +58,7 @@ export const updateDonation=(newData,token)=>dispatch=>{
 }
 export const deleteDonation = (_id,token) => dispatch => {
   console.log(_id,token);
-  fetch(`http://localhost:5000/donations/${_id}`,{
+  fetch(`${process.env.REACT_APP_CRUD_URL}/${_id}`,{
     method:"DELETE",
     headers: {
       'content-type': 'application/json',

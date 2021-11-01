@@ -5,7 +5,6 @@ import React,{useState,useEffect} from 'react';
 import DonateForm from "../components/DonateForm";
 import LoginForm from "../components/LoginForm";
 import Home from "../components/Home";
-import MustExport from "../components/MustExport";
 
 import { fetchDonations } from "../actions/donationActions";
 import {connect} from 'react-redux';

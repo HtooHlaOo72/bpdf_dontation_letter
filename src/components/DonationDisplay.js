@@ -1,6 +1,5 @@
 import { useState } from "react";
 import convertDate from "../utils/convertDate";
-import { connect } from "react-redux";
 import {AiFillCaretDown} from 'react-icons/ai';
 import {BiDotsVertical} from 'react-icons/bi';
 

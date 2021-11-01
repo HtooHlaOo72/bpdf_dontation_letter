@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import uuid from "react-uuid";
+import generateId from "../utils/generateId";
 
 import { useFormik } from "formik";
 
@@ -53,7 +53,7 @@ function DonateForm(props) {
     if (!props.auth.isAuthenticated) {
       history.push("/login");
     }
-  }, []);
+  });
   const formik = useFormik({
     initialValues: {
       donor: "",
@@ -70,7 +70,7 @@ function DonateForm(props) {
       
       let {donor,amount,signedBy,topic,unit,amountText,defaultTopic}=values;
       topic=(defaultTopic)?defaultTopic:topic;
-      const serialNo =uuid();
+      const serialNo =generateId(props.donations);
       const newDonation={donor,amount,topic,signedBy,serialNo,unit,amountText};
       props.createDonation(newDonation, props.auth.token);
       history.push("/dashboard");
@@ -223,7 +223,7 @@ function DonateForm(props) {
                 </div>
               )}
             </div>
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-warning">
               Submit
             </button>
           </form>
@@ -234,5 +234,6 @@ function DonateForm(props) {
 }
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  donations:state.donationList.donations
 });
 export default connect(mapStateToProps, { createDonation })(DonateForm);

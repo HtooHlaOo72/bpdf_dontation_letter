@@ -56,7 +56,7 @@ function EditForm(props) {
       history.push('/login');
     }
 
-  },[]);
+  });
   const formik = useFormik({
     initialValues: {
       donor: props.donation.donor,
@@ -222,7 +222,7 @@ function EditForm(props) {
                 </div>
               )}
             </div>
-            <button type="submit" className="btn btn-primary" disabled={loading}>
+            <button type="submit" className="btn btn-warning" disabled={loading}>
             {(loading)?"Loading...":"Submit"}
             </button>
           </form>

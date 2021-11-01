@@ -9,10 +9,8 @@ function LoginForm(props) {
   const [loading,setLoading]=useState(false);
   useEffect(() => {
     setLoading(false);
-    console.log("auth change")
     if(props.auth.isAuthenticated)  history.push('/dashboard');
-    
-  }, [props.auth.isAuthenticated]);
+  },[props.auth.isAuthenticated, history]);
   useEffect(()=>{
     setLoading(false);
   },[props.auth.error]);

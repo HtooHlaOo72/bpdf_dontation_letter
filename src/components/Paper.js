@@ -9,78 +9,84 @@ import {connect} from 'react-redux';
 import { useHistory } from "react-router";
 import convertDate, { convertNumber } from "../utils/convertDate";
 const Paper = (props) => {
-  let history=useHistory;
+  
   const cert = createRef();
   let {donor,amount,amountText,unit,signedBy,topic,createdAt,serialNo}=props.data;
   amount=convertNumber(amount+'');
   let date=convertDate(createdAt);
-  useEffect(()=>{
-      if(!props.auth.isAuthenticated) {
-        history.push('/login')
-      }
-  },[]);
-  const handleInputBoxes = (e) => {
-    var min = 100,
-      max = 500,
-      pad_right = 5;
-
-    e.target.style.width = min + "px";
-    e.target.onkeypress =
-      e.target.onkeydown =
-      e.target.onkeyup =
-        function () {
-          var input = this;
-          setTimeout(function () {
-            var tmp = document.createElement("div");
-            tmp.style.padding = "0";
-            if (getComputedStyle)
-              tmp.style.cssText = getComputedStyle(input, null).cssText;
-            if (e.target.currentStyle)
-              tmp.style.cssText = e.target.currentStyle.cssText;
-            tmp.style.width = "";
-            tmp.style.position = "absolute";
-            tmp.innerHTML = e.target.value
-              .replace(/&/g, "&amp;")
-              .replace(/</g, "&lt;")
-              .replace(/>/g, "&gt;")
-              .replace(/"/g, "&quot;")
-              .replace(/'/g, "&#039;")
-              .replace(/ /g, "&nbsp;");
-            e.target.parentNode.appendChild(tmp);
-            var width = tmp.clientWidth + pad_right + 1;
-            tmp.parentNode.removeChild(tmp);
-            if (min <= width && width <= max)
-              e.target.style.width = width + "px";
-          }, 1);
-        };
-  };
-
-  const saveAss = (blob, fileName) => {
-    var elem = window.document.createElement("a");
-    elem.href = blob;
-    elem.download = fileName;
-    elem.style = "display:none;";
-    (document.body || document.documentElement).appendChild(elem);
-    if (typeof elem.click === "function") {
-      elem.click();
-    } else {
-      elem.target = "_blank";
-      elem.dispatchEvent(
-        new MouseEvent("click", {
-          view: window,
-          bubbles: true,
-          cancelable: true,
-        })
-      );
-    }
-    URL.revokeObjectURL(elem.href);
-    elem.remove();
-  };
+  let isAuth=props.auth.isAuthenticated;
 
   const saveImage = () =>
     htmlToImage.toPng(cert.current, { pixelRatio: 1.5 }).then((data) => {
       saveAs(data,uuid() );
     });
+  useEffect(()=>{
+      let history=useHistory;
+      if(!isAuth) {
+        history.push('/login')
+      }else{
+        saveImage()
+      }
+  });
+  // const handleInputBoxes = (e) => {
+  //   var min = 100,
+  //     max = 500,
+  //     pad_right = 5;
+
+  //   e.target.style.width = min + "px";
+  //   e.target.onkeypress =
+  //     e.target.onkeydown =
+  //     e.target.onkeyup =
+  //       function () {
+  //         var input = this;
+  //         setTimeout(function () {
+  //           var tmp = document.createElement("div");
+  //           tmp.style.padding = "0";
+  //           if (getComputedStyle)
+  //             tmp.style.cssText = getComputedStyle(input, null).cssText;
+  //           if (e.target.currentStyle)
+  //             tmp.style.cssText = e.target.currentStyle.cssText;
+  //           tmp.style.width = "";
+  //           tmp.style.position = "absolute";
+  //           tmp.innerHTML = e.target.value
+  //             .replace(/&/g, "&amp;")
+  //             .replace(/</g, "&lt;")
+  //             .replace(/>/g, "&gt;")
+  //             .replace(/"/g, "&quot;")
+  //             .replace(/'/g, "&#039;")
+  //             .replace(/ /g, "&nbsp;");
+  //           e.target.parentNode.appendChild(tmp);
+  //           var width = tmp.clientWidth + pad_right + 1;
+  //           tmp.parentNode.removeChild(tmp);
+  //           if (min <= width && width <= max)
+  //             e.target.style.width = width + "px";
+  //         }, 1);
+  //       };
+  // };
+
+  // const saveAss = (blob, fileName) => {
+  //   var elem = window.document.createElement("a");
+  //   elem.href = blob;
+  //   elem.download = fileName;
+  //   elem.style = "display:none;";
+  //   (document.body || document.documentElement).appendChild(elem);
+  //   if (typeof elem.click === "function") {
+  //     elem.click();
+  //   } else {
+  //     elem.target = "_blank";
+  //     elem.dispatchEvent(
+  //       new MouseEvent("click", {
+  //         view: window,
+  //         bubbles: true,
+  //         cancelable: true,
+  //       })
+  //     );
+  //   }
+  //   URL.revokeObjectURL(elem.href);
+  //   elem.remove();
+  // };
+
+  
 
   return (
     <div className={cx(css.paper, "container")}>
@@ -89,11 +95,11 @@ const Paper = (props) => {
           <div ref={cert} id="paper" className={css.cert}>
             <div className={css.heading}>
               <div style={{textAlign:"start",marginLeft:"20px"}}>
-                <img src={Logo} alt="Logo" onClick={saveImage}/>
+                <img src={Logo} alt="Logo"/>
               </div>
               
-              <h1>Bago People Defense Force - BPDF</h1>
-              <p className="lead fw-bolder mb-5">မှတ်တမ်းတင်ဂုဏ်ပြုလွှာ</p>
+              <h1 className='fw-bolder'>Bago People Defense Force - BPDF</h1>
+              <p className="lead fw-bold mb-5">မှတ်တမ်းတင်ဂုဏ်ပြုလွှာ</p>
             </div>
             <div className={css.date}>
               ရက်စွဲ။&nbsp;&nbsp;&nbsp;&nbsp;။
@@ -139,14 +145,14 @@ const Paper = (props) => {
                 </b>
               </span>
               <br />
-              ပေးပို့လှူဒန်းမှူခြင်းအား ဂုဏ်ယူ ၀မ်းမြောက်စွာ
+              ပေးပို့လှူဒါန်းခြင်းအား ဂုဏ်ယူ ၀မ်းမြောက်စွာ
               မှတ်တမ်းတင်အပ်ပါသည်။
             </p>
             <div className={css.teacher}>
               <h6>တာဝန်ခံ({signedBy?signedBy:"ရဲနောင်"})</h6>
               <p>Bago People Defense Force-BPDF</p>
             </div>
-            <h6 className='uniq-id my-5'>serial-no-{serialNo}</h6>
+            <h6 className='uniq-id my-5'>အမှတ်စဉ်-{serialNo}</h6>
           </div>
         </div>
       </div>
