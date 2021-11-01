@@ -1,9 +1,8 @@
 import {connect} from 'react-redux';
-import {fetchDonations,deleteDonation,updateDonation,sortDonations,setEditData,setGenerateData} from '../actions/donationActions';
+import {fetchDonations,deleteDonation,updateDonation,setEditData,setGenerateData} from '../actions/donationActions';
 import {useEffect,useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import DonationDisplay from './DonationDisplay';
-import {useFormik} from 'formik';
 function Dashboard(props){
     const history=useHistory();
     const [filterOpen,setFilterOpen]=useState(false);
@@ -34,9 +33,7 @@ function Dashboard(props){
         // console.log(JSON.stringify(newData));
         // props.updateDonation(newData,props.auth.token)
     }   
-    const sortByAmount=()=>{
-        props.sortDonations();
-    }
+    
     const generateClick=async (donation)=>{
         await props.setGenerateData(donation);
         if(props.donationGen?._id===donation._id) history.push('/export');
@@ -109,4 +106,4 @@ const mapStateToProps=(state)=>({
     auth:state.auth,
     donationGen:state.donationList.donationGen,
 });
-export default connect(mapStateToProps,{fetchDonations,sortDonations,updateDonation,deleteDonation,setEditData,setGenerateData})(Dashboard);
+export default connect(mapStateToProps,{fetchDonations,updateDonation,deleteDonation,setEditData,setGenerateData})(Dashboard);
