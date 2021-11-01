@@ -74,7 +74,6 @@ function Dashboard(props){
                 {
                     props.donations
                     .filter((data)=>{
-                        console.log(filterDay);
                         if(filterDay==="") return true;
                         const [year,month,day]=data.createdAt.split("T")[0].split("-");
                         const [yearF,monthF,dayF,]=filterDay.split("-");
