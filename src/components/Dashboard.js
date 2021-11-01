@@ -53,7 +53,7 @@ function Dashboard(props){
                     (filterOpen)&&
                     <form className="row g-3 d-flex justify-content-end">
                     <div className="col-auto">
-                      <label htmlFor="filterDay" className="form-label">Day to Filter</label>
+                      <label htmlFor="filterDay" className="form-label">Click to choose day</label>
                       <input    type="date" 
                                 className="form-control" 
                                 id="filterDay" 
