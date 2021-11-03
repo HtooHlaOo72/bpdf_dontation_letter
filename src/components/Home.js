@@ -8,7 +8,7 @@ export default function Home(){
                         အလှူငွေမှတ်တမ်း ပြုလုပ်သည့် 
                     </p>
                     <p className='fw-bolder home-text '>Web Application</p>
-                    <Link to='/dashboard' className='btn  fw-bolder py-3 home-btn'>Dashboard</Link>
+                    <Link to='/dashboard' className='btn  fw-bolder py-3 home-btn'>Dashboard{process.env.REACT_APP_LOGIN_URL}</Link>
                 </div>
             </div>
         </div>

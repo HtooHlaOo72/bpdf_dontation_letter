@@ -2,18 +2,21 @@ import cx from "classnames";
 import { createRef,useEffect } from "react";
 import * as htmlToImage from "html-to-image";
 import Logo from "../utils/images/bpdf_logo.jpg";
+import Sign from "../utils/images/sign.svg";
+
 import css from "../sass/paper.module.sass";
 import {saveAs} from 'file-saver';
 import uuid from 'react-uuid';
 import {connect} from 'react-redux';
 import { useHistory } from "react-router";
 import convertDate, { convertNumber } from "../utils/convertDate";
+import convertId from "../utils/generateId";
 const Paper = (props) => {
-  
+  let history=useHistory();
   const cert = createRef();
   let {donor,amount,amountText,unit,signedBy,topic,createdAt,serialNo}=props.data;
   amount=convertNumber(amount+'');
-  let date=convertDate(createdAt);
+  let date=createdAt?convertDate(createdAt):"";
   let isAuth=props.auth.isAuthenticated;
 
   const saveImage = () =>
@@ -21,7 +24,7 @@ const Paper = (props) => {
       saveAs(data,uuid() );
     });
   useEffect(()=>{
-      let history=useHistory;
+      
       if(!isAuth) {
         history.push('/login')
       }else{
@@ -151,8 +154,11 @@ const Paper = (props) => {
             <div className={css.teacher}>
               <h6>တာဝန်ခံ({signedBy?signedBy:"ရဲနောင်"})</h6>
               <p>Bago People Defense Force-BPDF</p>
+              <div style={{textAlign:"end",marginRight:"50px"}}>
+                <img src={Sign} alt="Sign" id='sign' />
+              </div>
             </div>
-            <h6 className='uniq-id my-5'>အမှတ်စဉ်-{serialNo}</h6>
+            <h6 className='uniq-id my-5'>အမှတ်စဉ်-{serialNo?convertId(serialNo):"00001"}</h6>
           </div>
         </div>
       </div>

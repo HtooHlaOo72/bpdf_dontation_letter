@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import generateId from "../utils/generateId";
 
 import { useFormik } from "formik";
 
@@ -70,8 +69,7 @@ function DonateForm(props) {
       
       let {donor,amount,signedBy,topic,unit,amountText,defaultTopic}=values;
       topic=(defaultTopic)?defaultTopic:topic;
-      const serialNo =generateId(props.donations);
-      const newDonation={donor,amount,topic,signedBy,serialNo,unit,amountText};
+      const newDonation={donor,amount,topic,signedBy,unit,amountText};
       props.createDonation(newDonation, props.auth.token);
       history.push("/dashboard");
     },

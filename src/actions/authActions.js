@@ -2,7 +2,7 @@ import { LOGIN } from "./types";
 import axios from "axios";
 export const loginUser = (username, password) => (dispatch) => {
   axios
-    .post(process.env.REACT_APP_LOGIN_URL, { username, password })
+    .post("http://localhost:5000/users/login", { username, password })
     .then((auth) => {
       dispatch({
           type:LOGIN,

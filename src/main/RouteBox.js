@@ -12,6 +12,7 @@ import Dashboard from "../components/Dashboard";
 import EditForm from "../components/EditForm";
 import Paper from "../components/Paper";
 import NoMatch from "../components/NoMatch";
+import Detail from "../components/Detail";
 function RouteBox(props) {
   const [data,setData]=useState({
     name:'',
@@ -30,7 +31,6 @@ function RouteBox(props) {
             <Link to='/' className='nav-header' >
               <h1 className=''>Donation to Bago PDF</h1>
             </Link>
-            
           </header>
         </div>
       </div>
@@ -41,6 +41,7 @@ function RouteBox(props) {
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/export" component={Paper} />
         <Route exact path="/edit" component={EditForm} />
+        <Route exact path="/detail" component={Detail} />
         <Route exact path="*" component={NoMatch} />
       </Switch>
       

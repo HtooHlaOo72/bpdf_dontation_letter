@@ -5,39 +5,32 @@ import { useHistory } from 'react-router-dom';
 import DonationDisplay from './DonationDisplay';
 function Dashboard(props){
     const history=useHistory();
+    const {fetchDonations,auth}=props;
     const [filterOpen,setFilterOpen]=useState(false);
-    const [filterDay,setFilterDay]=useState('');
+    const [fromDay,setFromDay]=useState('2021-01-01');
+    const [mm,dd,yy]=new Date().toLocaleDateString().split("/");
+    const [toDay,setToDay]=useState(`${yy}-${(mm.length!==2)?"0"+mm:mm}-${(dd.length!==2)?"0"+dd:dd}`);
     
     useEffect(
         ()=>{
-            if(!props.auth.isAuthenticated) {
+            if(!auth.isAuthenticated) {
                 history.push('/login')
             }else{
-                props.fetchDonations(props.auth.token);
+                fetchDonations(auth.token);
             }
-        }
+        },[history,fetchDonations,auth]
     );
-    const deleteClick=(_id)=>{
-        props.deleteDonation(_id,props.auth.token)
-    };
-    const updateClick=async (data)=>{
-        await props.setEditData(data);
-        history.push('/edit')
-        // newData.donor="Edited Donor";
-        // console.log(JSON.stringify(newData));
-        // props.updateDonation(newData,props.auth.token)
-    };
+    
     const createClick=()=>{
         history.push('/donate')
         // newData.donor="Edited Donor";
         // console.log(JSON.stringify(newData));
         // props.updateDonation(newData,props.auth.token)
     }   
-    
     const generateClick=async (donation)=>{
         await props.setGenerateData(donation);
-        if(props.donationGen?._id===donation._id) history.push('/export');
     }
+    
     return (
         <div className='container'>
                 <div className='row mt-4 mb-2'>
@@ -53,32 +46,38 @@ function Dashboard(props){
                     (filterOpen)&&
                     <form className="row g-3 d-flex justify-content-end">
                     <div className="col-auto">
-                      <label htmlFor="filterDay" className="form-label">Click to choose day</label>
+                      <label htmlFor="filterDay" className="form-label">From</label>
                       <input    type="date" 
                                 className="form-control" 
                                 id="filterDay" 
                                 name="filterDay"
-                                value={filterDay}
-                                onChange={(e)=>{setFilterDay(e.target.value)}}
+                                value={fromDay}
+                                onChange={(e)=>{setFromDay(e.target.value)}}
                         />
                     </div>
                     <div className="col-auto">
-                      <button 
-                      type="button" 
-                      className="btn btn-warning border border-dark mb-3"
-                      onClick={()=>{setFilterDay("")}}
-                      >Apply No Filter</button>
+                      <label htmlFor="filterDay" className="form-label">To</label>
+                      <input    type="date" 
+                                className="form-control" 
+                                id="filterDay" 
+                                name="filterDay"
+                                value={toDay}
+                                onChange={(e)=>{setToDay(e.target.value)}}
+                        />
                     </div>
+                    
                   </form>
                 }
                 {
                     props.donations
                     .filter((data)=>{
-                        if(filterDay==="") return true;
-                        const [year,month,day]=data.createdAt.split("T")[0].split("-");
-                        const [yearF,monthF,dayF,]=filterDay.split("-");
-                        console.log(year,month,day,yearF,monthF,dayF);
-                        return (year===yearF && month===monthF && day===dayF);
+                        
+                        if(fromDay==="") return true;
+                        const dataDate=new Date(data.createdAt.split("T")[0]);
+                        const fromDate=new Date(fromDay);
+                        const toDate=new Date(toDay);
+
+                        return dataDate>=fromDate && dataDate<=toDate;
                     })
                     .sort(
                         (a,b)=>{
@@ -91,8 +90,6 @@ function Dashboard(props){
                         <DonationDisplay 
                             key={donation._id} 
                             donation={donation} 
-                            deleteClick={deleteClick}
-                            updateClick={updateClick} 
                             generateClick={generateClick}
                         />
                     )
@@ -105,4 +102,4 @@ const mapStateToProps=(state)=>({
     auth:state.auth,
     donationGen:state.donationList.donationGen,
 });
-export default connect(mapStateToProps,{fetchDonations,updateDonation,deleteDonation,setEditData,setGenerateData})(Dashboard);
+export default connect(mapStateToProps,{fetchDonations,setGenerateData})(Dashboard);
