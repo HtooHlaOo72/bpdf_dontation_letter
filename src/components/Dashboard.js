@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {fetchDonations,deleteDonation,updateDonation,setEditData,setGenerateData} from '../actions/donationActions';
+import {fetchDonations,setGenerateData} from '../actions/donationActions';
 import {useEffect,useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import DonationDisplay from './DonationDisplay';

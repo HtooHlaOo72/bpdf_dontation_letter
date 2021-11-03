@@ -227,6 +227,11 @@
     width:70px;
     height:40px;
 }
+.detail-item{
+    color:black;
+    border-radius: 10px;
+    box-shadow:-3px 4px 3px #7c5204;
+}
 @media (min-width: 576px) {
 
 }
