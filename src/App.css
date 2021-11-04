@@ -232,6 +232,10 @@
     border-radius: 10px;
     box-shadow:-3px 4px 3px #7c5204;
 }
+#main_text{
+    background-size: cover;
+    background-repeat:no-repeat;
+}
 @media (min-width: 576px) {
 
 }

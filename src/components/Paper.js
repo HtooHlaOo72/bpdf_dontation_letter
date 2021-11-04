@@ -108,7 +108,7 @@ const Paper = (props) => {
               ရက်စွဲ။&nbsp;&nbsp;&nbsp;&nbsp;။
               {date? date : "အောက်တိုဘာလ၊ ၂၂ရက်၊၂၀၂၁ခုနှစ်"}
             </div>
-            <p className={css.maintext}>
+            <p className={css.maintext} id='main_text'>
               {"    "}
               ပြည်သူလူထုအား စစ်ကောင်စီမှ လက်နက်ကိုင်ကာ အကြမ်းဖက်နေသော
               စစ်အာဏာရှင်စနစ်ကျရှုံးရေးအတွက် အသက်နှင့်ရင်းကာ

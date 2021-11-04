@@ -65,7 +65,7 @@ function Detail(props) {
           <div className="col-12">
             <div className="row my-2">
               <div className="col-5">အလှူရှင်အမည်</div>
-              <div className="col-2">-</div>
+              <div className="col-2">=</div>
               <div className="col-5">{donation.donor}</div>
             </div>
             <hr />
@@ -75,7 +75,7 @@ function Detail(props) {
               <div className="col-5">ငွေပမာဏ</div>
               <div className="col-2">=</div>
               <div className="col-5">
-                {donation.amount + " " + donation.unit}
+                {(donation.amount&&donation.unit)&&donation.amount + " " + donation.unit}
               </div>
             </div>
             <hr />
@@ -113,7 +113,38 @@ function Detail(props) {
               <div className="col-5">
                 {donation.serialNo
                   ? convertId(donation.serialNo)
-                  : donation.serialNo}
+                  : ""}
+              </div>
+            </div>
+            <hr />
+          </div>
+          <div className="col-12">
+            <div className="row my-2">
+              <div className="col-5">ငွေလွှဲသည့်နည်းလမ်း</div>
+              <div className="col-2">=</div>
+              <div className="col-5">
+                {donation.paymentType}
+                  
+              </div>
+            </div>
+            <hr />
+          </div>
+          <div className="col-12">
+            <div className="row my-2">
+              <div className="col-5">ငွေလက်ခံနံပါတ်</div>
+              <div className="col-2">=</div>
+              <div className="col-5">
+                {donation.receiverAcc}
+              </div>
+            </div>
+            <hr />
+          </div>
+          <div className="col-12">
+            <div className="row my-2">
+              <div className="col-5">လွှဲပြောင်းမှူအမှတ်စဉ်</div>
+              <div className="col-2">=</div>
+              <div className="col-5">
+                {donation.transactionId}
               </div>
             </div>
             <hr />
