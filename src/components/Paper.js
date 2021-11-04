@@ -152,11 +152,12 @@ const Paper = (props) => {
               မှတ်တမ်းတင်အပ်ပါသည်။
             </p>
             <div className={css.teacher}>
-              <h6>တာဝန်ခံ({signedBy?signedBy:"ရဲနောင်"})</h6>
-              <p>Bago People Defense Force-BPDF</p>
               <div style={{textAlign:"end",marginRight:"50px"}}>
                 <img src={Sign} alt="Sign" id='sign' />
               </div>
+              <h6>တာဝန်ခံ({signedBy?signedBy:"ရဲနောင်"})</h6>
+              <p>Bago People Defense Force-BPDF</p>
+              
             </div>
             <h6 className='uniq-id my-5'>အမှတ်စဉ်-{serialNo?convertId(serialNo):"00001"}</h6>
           </div>
