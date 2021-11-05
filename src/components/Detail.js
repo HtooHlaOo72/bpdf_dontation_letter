@@ -7,17 +7,17 @@ import {
   setEditData,
   setGenerateData,
 } from "../actions/donationActions";
+import { Link } from "react-router-dom";
 import convertId from "../utils/generateId";
 function Detail(props) {
   const donation = props.donationGen;
   const history = useHistory();
-  const auth=props.auth;
-  useEffect(()=>{
-      if(!auth.isAuthenticated)
-      {
-          history.push('/login');
-      }
-  },[auth,history]);
+  const auth = props.auth;
+  useEffect(() => {
+    if (!auth.isAuthenticated) {
+      history.push("/login");
+    }
+  }, [auth, history]);
 
   const deleteClick = async (_id) => {
     await props.deleteDonation(_id, props.auth.token);
@@ -35,32 +35,43 @@ function Detail(props) {
   return (
     <div className="container">
       <div className="row my-2">
-        <h1 className="h1 ">Detail</h1>
-        <hr />
-        <button
-          className="col-4 btn btn-dark text-warning"
-          onClick={() => {
-            exportClick(donation);
-          }}
-        >
-          Export
-        </button>
-        <button
-          className="col-4 btn btn-warning text-dark"
-          onClick={() => {
-            updateClick(donation);
-          }}
-        >
-          Edit
-        </button>
-        <button
-          className="col-4 btn btn-dark text-warning"
-          onClick={() => {
-            deleteClick(donation._id);
-          }}
-        >
-          Delete
-        </button>
+        <div className="col-12">
+          <h1 className="h1 ">Detail</h1>
+          <Link className="goto-records" to="/dashboard">
+            Back to Dashboard
+          </Link>
+          <hr />
+        </div>
+
+        {auth.role === "admin" && (
+          <>
+            <button
+              className="col-4 btn btn-dark text-warning"
+              onClick={() => {
+                exportClick(donation);
+              }}
+            >
+              Export
+            </button>
+            <button
+              className="col-4 btn btn-warning text-dark"
+              onClick={() => {
+                updateClick(donation);
+              }}
+            >
+              Edit
+            </button>
+            <button
+              className="col-4 btn btn-dark text-warning"
+              onClick={() => {
+                deleteClick(donation._id);
+              }}
+            >
+              Delete
+            </button>
+          </>
+        )}
+
         <div className="col-12 bg-warning text-dark mt-3 detail-item">
           <div className="col-12">
             <div className="row my-2">
@@ -75,7 +86,9 @@ function Detail(props) {
               <div className="col-5">ငွေပမာဏ</div>
               <div className="col-2">=</div>
               <div className="col-5">
-                {(donation.amount&&donation.unit)&&donation.amount + " " + donation.unit}
+                {donation.amount &&
+                  donation.unit &&
+                  donation.amount + " " + donation.unit}
               </div>
             </div>
             <hr />
@@ -111,9 +124,7 @@ function Detail(props) {
               <div className="col-5">အမှတ်စဉ်</div>
               <div className="col-2">=</div>
               <div className="col-5">
-                {donation.serialNo
-                  ? convertId(donation.serialNo)
-                  : ""}
+                {donation.serialNo ? convertId(donation.serialNo) : ""}
               </div>
             </div>
             <hr />
@@ -122,10 +133,7 @@ function Detail(props) {
             <div className="row my-2">
               <div className="col-5">ငွေလွှဲသည့်နည်းလမ်း</div>
               <div className="col-2">=</div>
-              <div className="col-5">
-                {donation.paymentType}
-                  
-              </div>
+              <div className="col-5">{donation.paymentType}</div>
             </div>
             <hr />
           </div>
@@ -133,9 +141,7 @@ function Detail(props) {
             <div className="row my-2">
               <div className="col-5">ငွေလက်ခံနံပါတ်</div>
               <div className="col-2">=</div>
-              <div className="col-5">
-                {donation.receiverAcc}
-              </div>
+              <div className="col-5">{donation.receiverAcc}</div>
             </div>
             <hr />
           </div>
@@ -143,9 +149,7 @@ function Detail(props) {
             <div className="row my-2">
               <div className="col-5">လွှဲပြောင်းမှူအမှတ်စဉ်</div>
               <div className="col-2">=</div>
-              <div className="col-5">
-                {donation.transactionId}
-              </div>
+              <div className="col-5">{donation.transactionId}</div>
             </div>
             <hr />
           </div>

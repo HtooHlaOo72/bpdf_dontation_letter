@@ -68,7 +68,7 @@ function EditForm(props) {
   //export component as image or pdf
   useEffect(()=>{
     if(!props.auth.isAuthenticated  && !(props.donation.donor && props.donation.amount && props.donation.topic && props.donation.signedBy)){
-      //history.push('/login');
+      history.push('/login');
     }
 
   });
@@ -86,14 +86,21 @@ function EditForm(props) {
     },
     validate,
     onSubmit: (values) => {
-      let { donor, amount, signedBy, topic, defaultTopic } = values;
+      let { topic, defaultTopic } = values;
       topic = defaultTopic ? defaultTopic : topic;
-      const newDonation = { donor, amount, topic, signedBy };
-      const newData = { ...props.donation, ...newDonation };
+      values.topic=topic;
+      let changedData={};
+      for(let i in values){
+        if(props.donation[i]!==values[i]){
+          changedData[i]=values[i];
+        }
+      }
+      changedData._id=props.donation._id
+      console.log(changedData,'changedata');
       setLoading(true);
       
-      props.updateDonation(newData, props.auth.token);
-      setLoading(false)
+      props.updateDonation(changedData, props.auth.token);
+      setLoading(false);
       history.push("/dashboard");
       
     },

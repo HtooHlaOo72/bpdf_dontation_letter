@@ -13,6 +13,7 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isAuthenticated:(action.payload?.success)?action.payload.success:false,
         token:(action.payload?.token)?action.payload.token:"",
+        role:(action.payload?.role)?action.payload.role:"",
         error:(action.payload?.error)?action.payload.error:""
       };
     

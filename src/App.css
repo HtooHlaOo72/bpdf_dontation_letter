@@ -236,6 +236,18 @@
     background-size: cover;
     background-repeat:no-repeat;
 }
+.goto-records{
+    text-decoration: none;
+    font-size: 16px;
+    color:black;
+    padding:3px;
+    border: 2px solid rgb(0, 0, 0);
+}
+.goto-records:hover{
+    color:black;
+    background-color: #ffc107;
+    border: 2px solid #000000;
+}
 @media (min-width: 576px) {
 
 }

@@ -13,6 +13,7 @@ import EditForm from "../components/EditForm";
 import Paper from "../components/Paper";
 import NoMatch from "../components/NoMatch";
 import Detail from "../components/Detail";
+import RecordDisplay from "../components/RecordDisplay";
 function RouteBox(props) {
   const [data,setData]=useState({
     name:'',
@@ -42,6 +43,7 @@ function RouteBox(props) {
         <Route exact path="/export" component={Paper} />
         <Route exact path="/edit" component={EditForm} />
         <Route exact path="/detail" component={Detail} />
+        <Route exact path="/records" component={RecordDisplay} />
         <Route exact path="*" component={NoMatch} />
       </Switch>
       

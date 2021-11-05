@@ -63,9 +63,9 @@ function DonateForm(props) {
   const history = useHistory();
   //export component as image or pdf
   useEffect(() => {
-    // if (!props.auth.isAuthenticated) {
-    //   history.push("/login");
-    // }
+    if (!props.auth.isAuthenticated) {
+      history.push("/login");
+    }
   });
   const formik = useFormik({
     initialValues: {
