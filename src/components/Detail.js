@@ -43,7 +43,7 @@ function Detail(props) {
           <hr />
         </div>
 
-        {auth.role === "admin" && (
+        {(auth.role === "admin" || auth.role === "moderator") && (
           <>
             <button
               className="col-4 btn btn-dark text-warning"
@@ -61,7 +61,12 @@ function Detail(props) {
             >
               Edit
             </button>
-            <button
+            
+          </>
+        )}
+        {
+          (auth.role==='admin')&&
+          <button
               className="col-4 btn btn-dark text-warning"
               onClick={() => {
                 deleteClick(donation._id);
@@ -69,8 +74,7 @@ function Detail(props) {
             >
               Delete
             </button>
-          </>
-        )}
+        }
 
         <div className="col-12 bg-warning text-dark mt-3 detail-item">
           <div className="col-12">
