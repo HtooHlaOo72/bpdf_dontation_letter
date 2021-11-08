@@ -194,7 +194,7 @@ function EditForm(props) {
             </div>
             <div className="mb-3">
               <label htmlFor="paymentType" className="form-label">
-                Payment type
+                ငွေပေးချေသည့်နည်းလမ်း
               </label>
               <select className="form-select" 
                       aria-label="Default select example"
@@ -205,9 +205,16 @@ function EditForm(props) {
                       >
                 <option value="KBZ-PAY">KBZ-PAY</option>
                 <option value="WAVE-PAY">WAVE-PAY</option>
+                <option value="CB-PAY">CB-PAY</option>
+                <option value="AYA-PAY">AYA-PAY</option>
                 <option value="KBZ-BANK">KBZ-BANK</option>
                 <option value="CB-BANK">CB-BANK</option>
                 <option value="AYA-BANK">AYA-BANK</option>
+                <option value="YOMA-BANK">YOMA-BANK</option>
+                <option value="PAYPAL">PAYPAL</option>
+                <option value="VISA">VISA</option>
+                <option value="ZELLE">ZELLE</option>
+                <option value="KASIKORN-BANK">KASIKORN-BANK</option>
               </select>
               {formik.errors.payment && (
                 <div className="alert alert-danger" role="alert">
@@ -217,7 +224,7 @@ function EditForm(props) {
             </div>
             <div className="mb-3">
               <label htmlFor="transactionId" className="form-label">
-                Transaction ID
+                ငွေလွှဲပြောင်းမှုအမှတ်စဉ်
               </label>
               <input
                 type="number"
@@ -236,7 +243,7 @@ function EditForm(props) {
             </div>
             <div className="mb-3">
               <label htmlFor="transactionId" className="form-label">
-                 Receiver Account
+                ငွေလက်ခံအကောင့်
               </label>
               <input
                 type="number"
