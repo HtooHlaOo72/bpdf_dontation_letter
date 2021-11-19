@@ -25,7 +25,7 @@ function RecordDisplay(props) {
     } else {
       fetchRecords(auth.token);
     }
-    console.log(records);
+    
   }, [fetchRecords, history, auth,records]);
   return (
     <div className="container">

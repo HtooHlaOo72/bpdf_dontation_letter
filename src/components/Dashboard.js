@@ -35,10 +35,14 @@ function Dashboard(props) {
   return (
     <div className="container">
       <div className="row mt-4 mb-2">
-        <div className="col-12 col-sm-8 col-md-8 col-lg-8">
+        <div className="col-12 col-sm-8 col-md-8 col-lg-8 mb-3">
             <h1 className="fw-bolder dashboard-header">Dashboard</h1>
             {
-                (props.auth.role==='admin')&&<Link className="fw-bold goto-records" to='/records'>View Records</Link>
+                (props.auth.role==='admin')
+                &&<>
+                    <Link className="fw-bold goto-records bg-warning" to='/records'>View Records</Link>
+                    <Link className="fw-bold goto-records bg-warning" to='/recorddetail'>Records Detail</Link>
+                  </>
 
             }
         </div>
@@ -90,6 +94,7 @@ function Dashboard(props) {
               }}
             />
           </div>
+          <hr />
         </form>
       )}
       {props.donations
