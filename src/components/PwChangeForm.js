@@ -9,7 +9,7 @@ function PwChangeForm(props) {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(false);
-    // if (props.auth.isAuthenticated) history.push("/dashboard");
+    if (!props.auth.isAuthenticated) history.push("/dashboard");
   }, [props.auth.isAuthenticated, history]);
   useEffect(() => {
     setLoading(false);
