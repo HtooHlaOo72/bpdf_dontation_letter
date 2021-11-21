@@ -1,4 +1,4 @@
-import { LOGIN} from '../actions/types';
+import { CHANGE_SUCCESS, LOGIN} from '../actions/types';
 
 const initialState = {
   isAuthenticated:false,
@@ -16,6 +16,11 @@ export default function authReducer(state = initialState, action) {
         role:(action.payload?.role)?action.payload.role:"",
         error:(action.payload?.error)?action.payload.error:""
       };
+      case CHANGE_SUCCESS:
+        return {
+          ...state,
+          changeResponse:action.payload.changeResponse
+        };
     
     default:
       return state;

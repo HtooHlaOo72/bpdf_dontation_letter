@@ -42,6 +42,7 @@ function Dashboard(props) {
                 &&<>
                     <Link className="fw-bold goto-records bg-warning" to='/records'>View Records</Link>
                     <Link className="fw-bold goto-records bg-warning" to='/recorddetail'>Records Detail</Link>
+                    <Link className="fw-bold goto-records bg-warning" to='/changepassword'>Change Password</Link>
                   </>
 
             }

@@ -9,7 +9,7 @@ import {
 } from "./types";
 
 export const fetchDonations = (token) => (dispatch) => {
-  fetch(process.env.REACT_APP_CRUD_URL, {
+  fetch(`${process.env.REACT_APP_API_URL}/donations`, {
     headers: {
       "content-type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ export const fetchDonations = (token) => (dispatch) => {
 };
 
 export const createDonation = (newDonation, token) => (dispatch) => {
-  fetch(process.env.REACT_APP_CRUD_URL, {
+  fetch(`${process.env.REACT_APP_API_URL}/donations`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -53,7 +53,7 @@ export const createDonation = (newDonation, token) => (dispatch) => {
 
 export const updateDonation = (newData, token) => (dispatch) => {
   //make update request
-  fetch(`${process.env.REACT_APP_CRUD_URL}/${newData._id}`, {
+  fetch(`${process.env.REACT_APP_API_URL}/donations/${newData._id}`, {
     method: "PUT",
     headers: {
       "content-type": "application/json",
@@ -74,7 +74,7 @@ export const updateDonation = (newData, token) => (dispatch) => {
 };
 export const deleteDonation = (_id, token) => (dispatch) => {
   console.log(_id, token);
-  fetch(`${process.env.REACT_APP_CRUD_URL}/${_id}`, {
+  fetch(`${process.env.REACT_APP_API_URL}/donations/${_id}`, {
     method: "DELETE",
     headers: {
       "content-type": "application/json",

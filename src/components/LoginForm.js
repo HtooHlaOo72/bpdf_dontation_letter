@@ -38,6 +38,7 @@ function LoginForm(props) {
       const { username, password } = await values;
       await setLoading(true);
       await props.loginUser(username, password);
+      setLoading(false);
     },
   });
 

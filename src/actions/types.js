@@ -6,5 +6,6 @@ export const SORT_DONATIONS="SORT_DONATIONS";
 export const SET_EDIT_DATA="SET_EDIT_DATA";
 export const SET_GEN_DATA='SET_GEN_DATA';
 export const LOGIN='LOGIN';
+export const CHANGE_SUCCESS="CHANGE_PASSWORD";
 export const FETCH_RECORDS="FETCH_RECORDS";
 export const DELETE_RECORDS="DELETE_RECORDS";

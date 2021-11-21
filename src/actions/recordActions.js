@@ -1,7 +1,7 @@
 import { DELETE_RECORDS, FETCH_RECORDS } from "./types";
 
 export const fetchRecords=(token)=>dispatch=>{
-    fetch(process.env.REACT_APP_RECORD_URL, {
+    fetch(`${"https://bpdf-backend.herokuapp.com"}/records`, {
     headers: {
       "content-type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ export const fetchRecords=(token)=>dispatch=>{
 
 export const deleteRecords = (token) => (dispatch) => {
     console.log('delete records..')
-    fetch(`${process.env.REACT_APP_RECORD_URL}`, {
+    fetch(`${"https://bpdf-backend.herokuapp.com"}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",

@@ -15,6 +15,7 @@ import NoMatch from "../components/NoMatch";
 import Detail from "../components/Detail";
 import RecordDisplay from "../components/RecordDisplay";
 import RecordDetail from "../components/RecordDetail";
+import PwChangeForm from "../components/PwChangeForm";
 function RouteBox(props) {
   const [data,setData]=useState({
     name:'',
@@ -46,6 +47,7 @@ function RouteBox(props) {
         <Route exact path="/detail" component={Detail} />
         <Route exact path="/records" component={RecordDisplay} />
         <Route exact path="/recorddetail" component={RecordDetail} />
+        <Route exact path="/changepassword" component={PwChangeForm} />
         <Route exact path="*" component={NoMatch} />
       </Switch>
       
