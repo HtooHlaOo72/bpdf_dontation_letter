@@ -139,7 +139,7 @@
   font-size: 30px;
 }
 .login-input {
-  font-size: 20px;
+  font-size: 12px;
 }
 
 .more-btn {
@@ -252,6 +252,9 @@
 
 div.col-5{
   overflow-wrap: break-word;
+}
+div.alert{
+  font-size: 12px;
 }
 @media (min-width: 576px) {
 }
