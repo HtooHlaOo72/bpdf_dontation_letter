@@ -256,6 +256,12 @@ div.col-5{
 div.alert{
   font-size: 12px;
 }
+.detail-btn{
+  max-height: 50px;
+}
+.create-btn,.del-btn{
+  max-height: 50px;
+}
 @media (min-width: 576px) {
 }
 

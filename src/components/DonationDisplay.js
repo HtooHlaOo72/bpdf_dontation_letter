@@ -15,7 +15,7 @@ const DonorData=({donor,amount,serialNo,setDetail})=>
   <div className='col-3 d-flex align-items-center'>{amount}</div>
   <div className='col-3 d-flex align-items-center'>{serialNo}</div>
   <div className='col-3 d-flex justify-content-end'>
-    <button className='btn btn-dark text-warning'
+    <button className='btn btn-dark text-warning detail-btn'
             onClick={setDetail}
     >
       Detail

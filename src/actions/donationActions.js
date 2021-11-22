@@ -30,6 +30,7 @@ export const fetchDonations = (token) => (dispatch) => {
 };
 
 export const createDonation = (newDonation, token) => (dispatch) => {
+  console.log(JSON.stringify(newDonation));
   fetch(`${process.env.REACT_APP_API_URL}/donations`, {
     method: "POST",
     headers: {
@@ -53,6 +54,7 @@ export const createDonation = (newDonation, token) => (dispatch) => {
 
 export const updateDonation = (newData, token) => (dispatch) => {
   //make update request
+  console.log(newData,'update action');
   fetch(`${process.env.REACT_APP_API_URL}/donations/${newData._id}`, {
     method: "PUT",
     headers: {

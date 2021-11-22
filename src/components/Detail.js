@@ -36,7 +36,7 @@ function Detail(props) {
     <div className="container">
       <div className="row my-2">
         <div className="col-12">
-          <h1 className="h1 ">Detail</h1>
+          <h2 className="h1 ">Detail</h2>
           <Link className="goto-records" to="/dashboard">
             Back to Dashboard
           </Link>
@@ -102,7 +102,7 @@ function Detail(props) {
               <div className="col-5">ရက်စွဲ</div>
               <div className="col-2">=</div>
               <div className="col-5">
-                {donation.createdAt ? donation.createdAt.split("T")[0] : ""}
+                {donation.date ? donation.date: ""}
               </div>
             </div>
             <hr />

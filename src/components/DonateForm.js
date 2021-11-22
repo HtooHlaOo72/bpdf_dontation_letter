@@ -19,6 +19,9 @@ const validate = (values) => {
   } else if (values.amount < 1) {
     errors.amount = "Must be 1 or more";
   }
+  if (!values.createDate) {
+    errors.createDate = "Required";
+  } 
 
   if (values.defaultTopic==="" && values.topic.length<=0) {
     errors.topic = "Required";
@@ -71,6 +74,7 @@ function DonateForm(props) {
     initialValues: {
       donor: "",
       amount: "",
+      createDate:'',
       topic: "",
       signedBy: "",
       defaultTopic:"",
@@ -84,9 +88,9 @@ function DonateForm(props) {
     validate,
     onSubmit: (values) => {
       
-      let {donor,amount,signedBy,topic,unit,amountText,defaultTopic,paymentType,receiverAcc,transactionId}=values;
+      let {donor,amount,signedBy,topic,unit,amountText,defaultTopic,paymentType,receiverAcc,transactionId,createDate}=values;
       topic=(defaultTopic)?defaultTopic:topic;
-      const newDonation={donor,amount,topic,signedBy,unit,amountText,paymentType,receiverAcc,transactionId};
+      const newDonation={donor,amount,topic,signedBy,unit,amountText,paymentType,receiverAcc,transactionId,date:createDate};
       props.createDonation(newDonation, props.auth.token);
       history.push("/dashboard");
     },
@@ -133,6 +137,25 @@ function DonateForm(props) {
               {formik.errors.amount && (
                 <div className="alert alert-danger" role="alert">
                   {formik.errors.amount}
+                </div>
+              )}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="amount" className="form-label">
+                ရက်စွဲ
+              </label>
+              <input
+                type="date"
+                className="form-control"
+                min='2021-01-02'
+                id="createDate"
+                name="createDate"
+                value={formik.values.createDate}
+                onChange={formik.handleChange}
+              />
+              {formik.errors.createDate && (
+                <div className="alert alert-danger" role="alert">
+                  {formik.errors.createDate}
                 </div>
               )}
             </div>

@@ -1,5 +1,5 @@
 export default function convertDate(dateText){//convert dd/mm/yyyy to Myanmar Date
-    dateText=dateText.split("T")[0];
+    
     let [year,month,day]=dateText.split('-');
     day=convertDay(day);
     month=convertMonth(month);

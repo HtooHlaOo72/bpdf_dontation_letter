@@ -25,7 +25,9 @@ const validate = (values) => {
   } else if (values.topic.length > 600) {
     errors.topic = "Must be less than 600 characters";
   }
-
+  if (!values.updateDate) {
+    errors.updateDate = "Required";
+  }
   if (!values.signedBy) {
     errors.signedBy = "Required";
   } else if (values.signedBy.length > 50) {
@@ -76,6 +78,7 @@ function EditForm(props) {
     initialValues: {
       donor: props.donation.donor?props.donation.donor:"",
       amount: props.donation.amount?props.donation.amount:"",
+      updateDate:props.donation.date?props.donation.date:"",
       topic: props.donation.topic?props.donation.topic:"",
       signedBy: props.donation.signedBy?props.donation.signedBy:"",
       unit: props.donation.unit?props.donation.unit:"",
@@ -86,23 +89,21 @@ function EditForm(props) {
     },
     validate,
     onSubmit: (values) => {
-      let { topic, defaultTopic } = values;
+      let { topic, defaultTopic,updateDate } = values;
       topic = defaultTopic ? defaultTopic : topic;
       values.topic=topic;
+      values.date=updateDate;
       let changedData={};
       for(let i in values){
         if(props.donation[i]!==values[i]){
           changedData[i]=values[i];
         }
       }
-      changedData._id=props.donation._id
-      console.log(changedData,'changedata');
+      changedData._id=props.donation._id;
       setLoading(true);
-      
       props.updateDonation(changedData, props.auth.token);
       setLoading(false);
       history.push("/dashboard");
-      
     },
     
   });
@@ -148,6 +149,26 @@ function EditForm(props) {
               {formik.errors.amount && (
                 <div className="alert alert-danger" role="alert">
                   {formik.errors.amount}
+                </div>
+              )}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="date" className="form-label">
+                ရက်စွဲ
+              </label>
+              <input
+                type="date"
+                className="form-control"
+                min='2021-01-02'
+                id="updateDate"
+                name="updateDate"
+                placeholder="ရက်စွဲ"
+                value={formik.values.updateDate}
+                onChange={formik.handleChange}
+              />
+              {formik.errors.updateDate && (
+                <div className="alert alert-danger" role="alert">
+                  {formik.errors.updateDate}
                 </div>
               )}
             </div>

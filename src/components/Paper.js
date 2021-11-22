@@ -14,9 +14,9 @@ import convertId from "../utils/generateId";
 const Paper = (props) => {
   let history=useHistory();
   const cert = createRef();
-  let {donor,amount,amountText,unit,signedBy,topic,createdAt,serialNo}=props.data;
+  let {donor,amount,amountText,unit,signedBy,topic,date,serialNo}=props.data;
+  date=convertDate(date);
   amount=convertNumber(amount+'');
-  let date=createdAt?convertDate(createdAt):"";
   let isAuth=props.auth.isAuthenticated;
 
   const saveImage = () =>
