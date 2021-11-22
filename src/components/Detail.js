@@ -22,6 +22,7 @@ function Detail(props) {
   const deleteClick = async (_id) => {
     await props.deleteDonation(_id, props.auth.token);
     await props.setGenerateData({});
+    history.push('/dashboard');
   };
   const updateClick = async (data) => {
     await props.setEditData(data);
