@@ -25,7 +25,7 @@ export const loginUser = (username, password) => (dispatch) => {
 
 export const changePassword =
   (username, password, newPassword, token) => async (dispatch) => {
-    console.log(username, password, newPassword, token, "ChangePw");
+    try{
     const resp=await axios.put(
         `${process.env.REACT_APP_API_URL}/users/changepassword`,
         { username, password, newPassword },
@@ -36,12 +36,20 @@ export const changePassword =
           },
         }
       );
-    console.log(JSON.stringify(resp));
     dispatch({
         type:CHANGE_SUCCESS,
         payload:{
             changeResponse:resp.data.success?"Password changed successfully":"Invalid Password Or Unknown Error!"
         }
     });
+  }
+  catch(e){
+    dispatch({
+      type:CHANGE_SUCCESS,
+      payload:{
+          changeResponse:"Invalid Password Or Unknown Error!"
+      }
+  });
+  }
 };
    
