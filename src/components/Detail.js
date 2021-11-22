@@ -9,6 +9,7 @@ import {
 } from "../actions/donationActions";
 import { Link } from "react-router-dom";
 import convertId from "../utils/generateId";
+import convertDate from "../utils/convertDate";
 function Detail(props) {
   const donation = props.donationGen;
   const history = useHistory();
@@ -103,7 +104,7 @@ function Detail(props) {
               <div className="col-5">ရက်စွဲ</div>
               <div className="col-2">=</div>
               <div className="col-5">
-                {donation.date ? donation.date: ""}
+                {donation.date ? convertDate(donation.date): ""}
               </div>
             </div>
             <hr />
