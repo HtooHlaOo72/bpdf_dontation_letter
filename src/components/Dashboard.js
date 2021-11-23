@@ -101,15 +101,15 @@ function Dashboard(props) {
       {props.donations
         .filter((data) => {
           if (fromDay === "") return true;
-          const dataDate = new Date(data.createdAt.split("T")[0]);
+          const dataDate = new Date(data.date);
           const fromDate = new Date(fromDay);
           const toDate = new Date(toDay);
 
           return dataDate >= fromDate && dataDate <= toDate;
         })
         .sort((a, b) => {
-          let aDate = new Date(a.createdAt.split("T")[0]);
-          let bDate = new Date(b.createdAt.split("T")[0]);
+          let aDate = new Date(a.date);
+          let bDate = new Date(b.date);
           return aDate - bDate;
         })
         .map((donation) => (
