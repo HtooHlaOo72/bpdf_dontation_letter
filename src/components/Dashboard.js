@@ -9,7 +9,7 @@ function Dashboard(props) {
   const { fetchDonations, auth } = props;
   const [filterOpen, setFilterOpen] = useState(false);
   const [fromDay, setFromDay] = useState("2021-01-01");
-  const [mm, dd, yy] = new Date().toLocaleDateString().split("/");
+  const [mm, dd, yy] = new Date('1/1/25').toLocaleDateString().split("/");
   const [toDay, setToDay] = useState(
     `${yy}-${mm.length !== 2 ? "0" + mm : mm}-${
       dd.length !== 2 ? "0" + dd : dd
