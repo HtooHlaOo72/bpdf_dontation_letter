@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { createDonation } from "../actions/donationActions";
 import { connect } from "react-redux";
 
+
 const validate = (values) => {
   const errors = {};
   if (!values.donor) {
@@ -59,6 +60,9 @@ const validate = (values) => {
   } else if (values.transactionId < 9999) {
     errors.transactionId = "Must be 5 digits or more";
   }
+  if(values.extraNote && values.extraNote.length>150){
+    errors.extraNote='Must be 150 or less characters!';
+  }
   return errors;
 };
 
@@ -82,15 +86,16 @@ function DonateForm(props) {
       amountText:"",
       paymentType:"KBZ-PAY",
       receiverAcc:"",
-      transactionId:""
+      transactionId:"",
+      extraNote:""
 
     },
     validate,
     onSubmit: (values) => {
       
-      let {donor,amount,signedBy,topic,unit,amountText,defaultTopic,paymentType,receiverAcc,transactionId,createDate}=values;
+      let {donor,amount,signedBy,topic,unit,amountText,defaultTopic,paymentType,receiverAcc,transactionId,createDate,extraNote}=values;
       topic=(defaultTopic)?defaultTopic:topic;
-      const newDonation={donor,amount,topic,signedBy,unit,amountText,paymentType,receiverAcc,transactionId,date:createDate};
+      const newDonation={donor,amount,topic,signedBy,unit,amountText,paymentType,receiverAcc,transactionId,date:createDate,extraNote};
       props.createDonation(newDonation, props.auth.token);
       history.push("/dashboard");
     },
@@ -326,6 +331,24 @@ function DonateForm(props) {
               {formik.errors.signedBy && (
                 <div className="alert alert-danger" role="alert">
                   {formik.errors.signedBy}
+                </div>
+              )}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="donor" className="form-label">
+                Extra Note
+              </label>
+              <textarea
+                className="form-control"
+                id="extraNote"
+                name="extraNote"
+                placeholder="Add Some Note..."
+                value={formik.values.extraNote}
+                onChange={formik.handleChange}
+              />
+              {formik.errors.extraNote && (
+                <div className="alert alert-danger" role="alert">
+                  {formik.errors.extraNote}
                 </div>
               )}
             </div>

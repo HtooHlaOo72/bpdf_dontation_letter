@@ -58,6 +58,9 @@ const validate = (values) => {
   } else if (values.transactionId < 9999) {
     errors.transactionId = "Must be 5 digits or more";
   }
+  if(values.extraNote && values.extraNote.length>150){
+    errors.extraNote='Must be 150 or less characters!';
+  }
   return errors;
 };
 
@@ -85,7 +88,8 @@ function EditForm(props) {
       amountText: props.donation.amountText?props.donation.amountText:"",
       paymentType:props.donation.paymentType?props.donation.paymentType:"",
       transactionId:props.donation.transactionId?props.donation.transactionId:"",
-      receiverAcc:props.donation.receiverAcc?props.donation.receiverAcc:""
+      receiverAcc:props.donation.receiverAcc?props.donation.receiverAcc:"",
+      extraNote:props.donation.extraNote?props.donation.extraNote:"",
     },
     validate,
     onSubmit: (values) => {
@@ -339,6 +343,24 @@ function EditForm(props) {
               {formik.errors.signedBy && (
                 <div className="alert alert-danger" role="alert">
                   {formik.errors.signedBy}
+                </div>
+              )}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="donor" className="form-label">
+                Extra Note
+              </label>
+              <textarea
+                className="form-control"
+                id="extraNote"
+                name="extraNote"
+                placeholder="Add Some Note..."
+                value={formik.values.extraNote}
+                onChange={formik.handleChange}
+              />
+              {formik.errors.extraNote && (
+                <div className="alert alert-danger" role="alert">
+                  {formik.errors.extraNote}
                 </div>
               )}
             </div>

@@ -159,6 +159,14 @@ function Detail(props) {
             </div>
             <hr />
           </div>
+          <div className="col-12">
+            <div className="row my-2">
+              <div className="col-5">Extra Note</div>
+              <div className="col-2">=</div>
+              <div className="col-5">{donation.extraNote}</div>
+            </div>
+            <hr />
+          </div>
         </div>
       </div>
     </div>
