@@ -108,9 +108,9 @@ function Dashboard(props) {
           return dataDate >= fromDate && dataDate <= toDate;
         })
         .sort((a, b) => {
-          let aDate = new Date(a.date);
-          let bDate = new Date(b.date);
-          return aDate - bDate;
+          // let aDate = new Date(a.date);
+          // let bDate = new Date(b.date);
+          return a.serialNo - b.serialNo;
         })
         .map((donation) => (
           <DonationDisplay
