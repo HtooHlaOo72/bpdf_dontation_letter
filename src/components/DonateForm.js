@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 
 import { createDonation } from "../actions/donationActions";
 import { connect } from "react-redux";
-import ReactDatePicker from 'react-datepicker'
+
 
 const validate = (values) => {
   const errors = {};
@@ -149,7 +149,7 @@ function DonateForm(props) {
               <label htmlFor="amount" className="form-label">
                 ရက်စွဲ
               </label>
-              {/* <input
+              <input
                 type="date"
                 className="form-control"
                 min='2021-01-02'
@@ -157,14 +157,8 @@ function DonateForm(props) {
                 name="createDate"
                 value={formik.values.createDate}
                 onChange={formik.handleChange}
-              /> */}
-              <ReactDatePicker 
-                      selected={formik.values.startDate}
-                      dateFormat="MMMM d, yyyy"
-                      className="form-control"
-                      name="createDate"
-                      onChange={date => formik.setFieldValue('createDate', date)}
-                    />
+              />
+              
               {formik.errors.createDate && (
                 <div className="alert alert-danger" role="alert">
                   {formik.errors.createDate}
