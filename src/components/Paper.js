@@ -15,8 +15,8 @@ const Paper = (props) => {
   let history=useHistory();
   const cert = createRef();
   let {donor,amount,amountText,unit,signedBy,topic,date,serialNo}=props.data;
-  date=convertDate(date);
-  amount=convertNumber(amount+'');
+  date=date&&convertDate(date);
+  amount=amount&&convertNumber(amount+'');
   let isAuth=props.auth.isAuthenticated;
 
   const saveImage = () =>
@@ -112,7 +112,7 @@ const Paper = (props) => {
               {"    "}
               ပြည်သူလူထုအား စစ်ကောင်စီမှ လက်နက်ကိုင်ကာ အကြမ်းဖက်နေသော
               စစ်အာဏာရှင်စနစ်ကျရှုံးရေးအတွက် အသက်နှင့်ရင်းကာ
-              တိုက်ပွဲ၀င်လျှက်ရှိသော<br/> ပြည်သူ့ကာကွယ်ရေးတပ်ဖွဲ့ (ပဲခူးတိုင်း){" "}
+              တိုက်ပွဲဝင်လျှက်ရှိသော<br/> ပြည်သူ့ကာကွယ်ရေးတပ်ဖွဲ့ (ပဲခူးတိုင်း){" "}
               <span className="fw-bolder">BPDF</span> အတွက်<br/>
               {(topic)?topic:"လိုအပ်သော နေရာများတွင် အသုံးပြုနိုင်ရန်"}
               <br />
@@ -148,7 +148,7 @@ const Paper = (props) => {
                 </b>
               </span>
               <br />
-              ပေးပို့လှူဒါန်းခြင်းအား ဂုဏ်ယူ ၀မ်းမြောက်စွာ
+              ပေးပို့လှူဒါန်းခြင်းအား ဂုဏ်ယူ ဝမ်းမြောက်စွာ
               မှတ်တမ်းတင်အပ်ပါသည်။
             </p>
             <div className={css.teacher}>

@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 
 import { updateDonation } from "../actions/donationActions";
+import { MySwal } from "../utils/MySwal";
 import { connect } from "react-redux";
 
 const validate = (values) => {
@@ -77,6 +78,7 @@ function EditForm(props) {
     }
 
   });
+  
   const formik = useFormik({
     initialValues: {
       donor: props.donation.donor?props.donation.donor:"",
@@ -93,21 +95,36 @@ function EditForm(props) {
     },
     validate,
     onSubmit: (values) => {
-      let { topic, defaultTopic,updateDate } = values;
-      topic = defaultTopic ? defaultTopic : topic;
-      values.topic=topic;
-      values.date=updateDate;
-      let changedData={};
-      for(let i in values){
-        if(props.donation[i]!==values[i]){
-          changedData[i]=values[i];
+      
+      MySwal.fire({
+        title: "Are you sure want to edit?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Edit",
+      })
+      .then((data)=>{
+        if(data.isConfirmed){
+          let { topic, defaultTopic,updateDate } = values;
+          topic = defaultTopic ? defaultTopic : topic;
+          values.topic=topic;
+          values.date=updateDate;
+          let changedData={};
+          for(let i in values){
+            if(props.donation[i]!==values[i]){
+              changedData[i]=values[i];
+            }
+          }
+          changedData._id=props.donation._id;
+          setLoading(true);
+          props.updateDonation(changedData, props.auth.token);
+          setLoading(false);
+          history.push("/dashboard");
         }
-      }
-      changedData._id=props.donation._id;
-      setLoading(true);
-      props.updateDonation(changedData, props.auth.token);
-      setLoading(false);
-      history.push("/dashboard");
+      })
+
+      
     },
     
   });

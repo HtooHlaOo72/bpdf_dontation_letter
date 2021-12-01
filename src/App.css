@@ -227,6 +227,7 @@
   height: 40px;
   margin-right: 20px;
   margin-bottom: 5px;
+  opacity: 0.5;
 }
 .detail-item {
   color: black;

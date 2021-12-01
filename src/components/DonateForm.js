@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 
 import { createDonation } from "../actions/donationActions";
 import { connect } from "react-redux";
-
+import { MySwal } from "../utils/MySwal";
 
 const validate = (values) => {
   const errors = {};
@@ -92,12 +92,30 @@ function DonateForm(props) {
     },
     validate,
     onSubmit: (values) => {
+      MySwal.fire({
+        title: "Are you sure want to create?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Create",
+      })
+      .then((data)=>{
+        if(data.isConfirmed){
+          let {donor,amount,signedBy,topic,unit,amountText,defaultTopic,paymentType,receiverAcc,transactionId,createDate,extraNote}=values;
+          topic=(defaultTopic)?defaultTopic:topic;
+          const newDonation={donor,amount,topic,signedBy,unit,amountText,paymentType,receiverAcc,transactionId,date:createDate,extraNote};
+          props.createDonation(newDonation, props.auth.token);
+          history.push("/dashboard");
+        }
+      })
+      .catch((e)=>{
+        MySwal.fire({
+          icon:"warning",
+          title:"Error In Editing"
+        })
+      })
       
-      let {donor,amount,signedBy,topic,unit,amountText,defaultTopic,paymentType,receiverAcc,transactionId,createDate,extraNote}=values;
-      topic=(defaultTopic)?defaultTopic:topic;
-      const newDonation={donor,amount,topic,signedBy,unit,amountText,paymentType,receiverAcc,transactionId,date:createDate,extraNote};
-      props.createDonation(newDonation, props.auth.token);
-      history.push("/dashboard");
     },
   });
 
@@ -306,9 +324,9 @@ function DonateForm(props) {
                       >
                 <option value={formik.values.topic}>{formik.values.topic}</option>
                 <option value="လိုအပ်သောနေရာများတွင် အသုံးပြုနိုင်ရန်">လိုအပ်သောနေရာများတွင် အသုံးပြုနိုင်ရန်</option>
-                <option value="လိုအပ်သောစားနပ်ရိက္ခာများ ၀ယ်ယူနိုင်ရန်">လိုအပ်သောစားနပ်ရိက္ခာများ ၀ယ်ယူနိုင်ရန်</option>
-                <option value="လိုအပ်သောလက်နက်ခဲယမ်းများ ၀ယ်ယူနိုင်ရန်">လိုအပ်သောလက်နက်ခဲယမ်းများ ၀ယ်ယူနိုင်ရန်</option>
-                <option value="လိုအပ်သော ဆေး၀ါးများ၀ယ်ယူနိုင်ရန်">လိုအပ်သော ဆေး၀ါးများ၀ယ်ယူနိုင်ရန်</option>
+                <option value="လိုအပ်သောစားနပ်ရိက္ခာများ ၀ယ်ယူနိုင်ရန်">လိုအပ်သောစားနပ်ရိက္ခာများ ဝယ်ယူနိုင်ရန်</option>
+                <option value="လိုအပ်သောလက်နက်ခဲယမ်းများ ၀ယ်ယူနိုင်ရန်">လိုအပ်သောလက်နက်ခဲယမ်းများ ဝယ်ယူနိုင်ရန်</option>
+                <option value="လိုအပ်သော ဆေး၀ါးများ၀ယ်ယူနိုင်ရန်">လိုအပ်သော ဆေး၀ါးများဝယ်ယူနိုင်ရန်</option>
               </select>
               {formik.errors.defaultTopic && (
                 <div className="alert alert-danger" role="alert">
