@@ -6,8 +6,9 @@ import { useFormik } from "formik";
 import { updateDonation } from "../actions/donationActions";
 import { MySwal } from "../utils/MySwal";
 import { connect } from "react-redux";
-
+import { useParams } from 'react-router-dom'
 const validate = (values) => {
+   
   const errors = {};
   if (!values.donor) {
     errors.donor = "Required";
@@ -67,6 +68,7 @@ const validate = (values) => {
 
 function EditForm(props) {
   const [loading,setLoading]=useState(false);
+  const {type} = useParams();
   useEffect(()=>{
     setLoading(false);
   },[props.auth.error]);
@@ -95,7 +97,7 @@ function EditForm(props) {
     },
     validate,
     onSubmit: (values) => {
-      
+
       MySwal.fire({
         title: "Are you sure want to edit?",
         icon: "warning",
@@ -123,6 +125,12 @@ function EditForm(props) {
           history.push("/dashboard");
         }
       })
+      .catch((e)=>{
+        MySwal.fire({
+          icon:"warning",
+          title:"Error In Editing"
+        })
+      })
 
       
     },
@@ -131,7 +139,7 @@ function EditForm(props) {
 
   return (
     <div className="container">
-      <h1>Donation Form</h1>
+      <h1>{type} Form</h1>
       <div className="row">
         <div className="col-12">
         <form onSubmit={formik.handleSubmit}>
@@ -334,7 +342,7 @@ function EditForm(props) {
                       >
                 <option value={formik.values.topic}>{formik.values.topic}</option>
                 <option value="လိုအပ်သောနေရာများတွင် အသုံးပြုနိုင်ရန်">လိုအပ်သောနေရာများတွင် အသုံးပြုနိုင်ရန်</option>
-                <option value="လိုအပ်သောစားနပ်ရိက္ခာများ ၀ယ်ယူနိုင်ရန်">လိုအပ်သောစားနပ်ရိက္ခာများ ၀ယ်ယူနိုင်ရန်</option>
+                <option value="လိုအပ်သောစားနပ်ရိက္ခာများ ၀ယ်ယူနိုင်ရန်">လိုအပ်သောစားနပ်ရိက္ခာများ ဝယ်ယူနိုင်ရန်</option>
                 <option value="လိုအပ်သောလက်နက်ခဲယမ်းများ ၀ယ်ယူနိုင်ရန်">လိုအပ်သောလက်နက်ခဲယမ်းများ ၀ယ်ယူနိုင်ရန်</option>
                 <option value="လိုအပ်သော ဆေး၀ါးများ၀ယ်ယူနိုင်ရန်">လိုအပ်သော ဆေး၀ါးများ၀ယ်ယူနိုင်ရန်</option>
               </select>

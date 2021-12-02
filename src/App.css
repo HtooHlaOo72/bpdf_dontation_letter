@@ -188,6 +188,7 @@
   margin-left: 0px;
   margin-right: 0px;
   border-left: 5px solid black;
+  font-size:12px ;
 }
 .card-btn {
   color: #ffc107;
@@ -262,6 +263,9 @@ div.alert{
 }
 .create-btn,.del-btn{
   max-height: 50px;
+}
+#showDonationBtn{
+  font-size: 13px;
 }
 @media (min-width: 576px) {
 }

@@ -16,6 +16,7 @@ import Detail from "../components/Detail";
 import RecordDisplay from "../components/RecordDisplay";
 import RecordDetail from "../components/RecordDetail";
 import PwChangeForm from "../components/PwChangeForm";
+import SupplyForm from "../components/SupplyForm";
 function RouteBox(props) {
   const [data,setData]=useState({
     name:'',
@@ -44,10 +45,12 @@ function RouteBox(props) {
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/export" component={Paper} />
         <Route exact path="/edit" component={EditForm} />
-        <Route exact path="/detail" component={Detail} />
+        <Route exact path="/detail/:detailType" component={Detail} />
         <Route exact path="/records" component={RecordDisplay} />
         <Route exact path="/recorddetail" component={RecordDetail} />
         <Route exact path="/changepassword" component={PwChangeForm} />
+        <Route path="/supply/:action/:s_id" component={SupplyForm}/>
+        <Route path="/supply/create" component={SupplyForm}/>
         <Route exact path="*" component={NoMatch} />
       </Switch>
       
