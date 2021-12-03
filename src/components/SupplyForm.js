@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
 import { useFormik } from "formik";
@@ -74,12 +74,12 @@ function SupplyForm(props) {
     validate,
     onSubmit:(values) => {
       MySwal.fire({
-        title: "Are you sure want to create?",
+        title: "Are you sure want to submit?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, Create",
+        confirmButtonText: "Yes, Submit",
       })
         .then(async (data) => {
           if (data.isConfirmed) {

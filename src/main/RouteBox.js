@@ -43,7 +43,7 @@ function RouteBox(props) {
         <Route exact path="/login" component={LoginForm} />
         <Route exact path="/donate" render={(props)=><DonateForm data={data} setData={setData} />} />
         <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/export" component={Paper} />
+        <Route exact path="/export/:type" component={Paper} />
         <Route exact path="/edit" component={EditForm} />
         <Route exact path="/detail/:detailType" component={Detail} />
         <Route exact path="/records" component={RecordDisplay} />

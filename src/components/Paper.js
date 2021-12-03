@@ -8,13 +8,15 @@ import css from "../sass/paper.module.sass";
 import {saveAs} from 'file-saver';
 import uuid from 'react-uuid';
 import {connect} from 'react-redux';
-import { useHistory } from "react-router";
+import { useHistory,useParams } from "react-router";
 import convertDate, { convertNumber } from "../utils/convertDate";
 import convertId from "../utils/generateId";
 const Paper = (props) => {
   let history=useHistory();
+  const  {type}=useParams();
   const cert = createRef();
-  let {donor,amount,amountText,unit,signedBy,topic,date,serialNo}=props.data;
+  let data=(type==="money")?props.donation:props.supply;
+  let {donor,amount,amountText,unit,signedBy,topic,date,serialNo,supply}=data;
   date=date&&convertDate(date);
   amount=amount&&convertNumber(amount+'');
   let isAuth=props.auth.isAuthenticated;
@@ -125,7 +127,10 @@ const Paper = (props) => {
                   }
                 </b>{" "}
                 မှ{" "}
-                <b>
+                
+                {
+                  (type==="money")&&
+                  <b>
                   {
                     amount
                     ?amount+"/-"
@@ -146,6 +151,15 @@ const Paper = (props) => {
                     :"(မြန်မာငွေကျပ် ဆယ်သိန်းတိတိ)"
                   }
                 </b>
+                }
+                {
+                  (type==='supply')&&
+                  <b>
+                    {
+                      supply
+                    }
+                  </b>
+                }
               </span>
               <br />
               ပေးပို့လှူဒါန်းခြင်းအား ဂုဏ်ယူ ဝမ်းမြောက်စွာ
@@ -168,6 +182,7 @@ const Paper = (props) => {
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  data:state.donationList.donationGen
+  donation:state.donationList.donationGen,
+  supply:state.supplyList.g_supply
 });
 export default connect(mapStateToProps,null)(Paper);

@@ -40,7 +40,7 @@ function Detail(props) {
 
   const exportClick = async (data) => {
     await props.setGenerateData(data);
-    if (props.auth.isAuthenticated) history.push("/export");
+    if (props.auth.isAuthenticated) history.push("/export/"+detailType);
   };
   return (
     <div className="container">
