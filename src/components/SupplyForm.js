@@ -49,9 +49,9 @@ function SupplyForm(props) {
   const history = useHistory();
   //export component as image or pdf
   useEffect(() => {
-    // if(!props.auth.isAuthenticated  && !(props.supplies.donor && props.supplies.amount && props.supplies.topic && props.supplies.signedBy)){
-    //   history.push('/login');
-    // }
+    if(!props.auth.isAuthenticated ){
+      history.push('/login');
+    }
   });
 
   const getInit = () => {
