@@ -267,7 +267,26 @@ div.alert{
 #showDonationBtn{
   font-size: 13px;
 }
+.pagination > .previous > a,.pagination > .next > a{
+  font-size: 12px;
+}
+.pagination > li > a {
+  font-size: 8px;
+  color:black;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: #ffc107 !Important;
+    border: solid 1px #ffc107 !Important;
+    
+}
 @media (min-width: 576px) {
+  *{
+    font-size: 14px;
+  }
+  
 }
 
 /* // Medium devices (tablets, 768px and up) */

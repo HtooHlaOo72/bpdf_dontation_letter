@@ -5,11 +5,12 @@ import {
   setEditSupply,
   setGenerateSupply,
 } from "../actions/supplyAction";
+import PaginatedItems from "./Pagination";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { MySwal } from "../utils/MySwal";
 import { Link } from "react-router-dom";
-import DonationDisplay from "./DonationDisplay";
+
 function Dashboard(props) {
   const history = useHistory();
   const { fetchDonations, fetchSupplies, auth } = props;
@@ -54,7 +55,26 @@ function Dashboard(props) {
   const generateClick = async (donation) => {
     await props.setGenerateData(donation);
   };
+  const setGenSupply=async (supply)=>{
+    await props.setGenerateSupply(supply);
+  }
 
+  function filterAndSort(items){
+    return items.filter((data) => {
+      if (fromDay === "") return true;
+      const dataDate = new Date(data.date);
+      const fromDate = new Date(fromDay);
+      const toDate = new Date(toDay);
+  
+      return dataDate >= fromDate && dataDate <= toDate;
+    })
+    .sort((a, b) => {
+      // let aDate = new Date(a.date);
+      // let bDate = new Date(b.date);
+      return b.serialNo-a.serialNo ;
+    })
+
+  }
   return (
     <div className="container">
       <div className="row mt-4 mb-2">
@@ -149,52 +169,43 @@ function Dashboard(props) {
           <hr />
         </form>
       )}
-      {showDonation &&
-        props.donations
-          .filter((data) => {
-            if (fromDay === "") return true;
-            const dataDate = new Date(data.date);
-            const fromDate = new Date(fromDay);
-            const toDate = new Date(toDay);
+      {/* {showDonation &&
+        filterAndSort(props.donations)
+        .map((donation) => (
+          <DonationDisplay
+            key={donation._id}
+            donation={donation}
+            generateClick={generateClick}
+            type="money"
+          />
+        ))} */}
+        {
+        showDonation &&
+        <PaginatedItems itemsPerPage={6} items={filterAndSort(props.donations)} 
+        setGenSupply={setGenSupply} setGenDonation={generateClick}
+        type="money"
+        />
+        }
+      {/* {!showDonation &&
+        filterAndSort(props.supplies)
+        .map((supply) => (
+          <DonationDisplay
+            key={supply._id}
+            supply={supply}
+            generateClick={setGenSupply}
+            type="supply"
+          />
+        ))} */}
 
-            return dataDate >= fromDate && dataDate <= toDate;
-          })
-          .sort((a, b) => {
-            // let aDate = new Date(a.date);
-            // let bDate = new Date(b.date);
-            return a.serialNo - b.serialNo;
-          })
-          .map((donation) => (
-            <DonationDisplay
-              key={donation._id}
-              donation={donation}
-              generateClick={generateClick}
-              type="money"
-            />
-          ))}
-      {!showDonation &&
-        props.supplies
-          .filter((data) => {
-            if (fromDay === "") return true;
-            const dataDate = new Date(data.date);
-            const fromDate = new Date(fromDay);
-            const toDate = new Date(toDay);
+        {
+        !showDonation &&
+        <PaginatedItems itemsPerPage={6} items={filterAndSort(props.supplies)} 
+        setGenSupply={setGenSupply} setGenDonation={generateClick}
+        type="supply"
+        />
+        }
 
-            return dataDate >= fromDate && dataDate <= toDate;
-          })
-          .sort((a, b) => {
-            // let aDate = new Date(a.date);
-            // let bDate = new Date(b.date);
-            return a.serialNo - b.serialNo;
-          })
-          .map((supply) => (
-            <DonationDisplay
-              key={supply._id}
-              supply={supply}
-              generateClick={props.setGenerateSupply}
-              type="supply"
-            />
-          ))}
+          
     </div>
   );
 }
