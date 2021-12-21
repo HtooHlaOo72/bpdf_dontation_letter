@@ -166,7 +166,7 @@ const Paper = (props) => {
               မှတ်တမ်းတင်အပ်ပါသည်။
             </p>
             <div className={css.teacher}>
-              <div style={{textAlign:"end",marginRight:"50px"}}>
+              <div style={{textAlign:"end",marginRight:"35px"}}>
                 <img src={Sign} alt="Sign" id='sign' />
               </div>
               <h6>တာဝန်ခံ({signedBy?signedBy:"ရဲနောင်"})</h6>
