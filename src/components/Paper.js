@@ -2,7 +2,7 @@ import cx from "classnames";
 import { createRef,useEffect } from "react";
 import * as htmlToImage from "html-to-image";
 import Logo from "../utils/images/bpdf_logo.jpg";
-import Sign from "../utils/images/sign.webp";
+import Sign from "../utils/images/sign.png";
 
 import css from "../sass/paper.module.sass";
 import {saveAs} from 'file-saver';
