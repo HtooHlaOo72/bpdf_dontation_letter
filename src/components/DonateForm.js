@@ -11,8 +11,8 @@ const validate = (values) => {
   const errors = {};
   if (!values.donor) {
     errors.donor = "Required";
-  } else if (values.donor.length > 50) {
-    errors.donor = "Must be 50 characters or less";
+  } else if (values.donor.length > 100) {
+    errors.donor = "Must be 100 characters or less";
   }
 
   if (!values.amount) {
