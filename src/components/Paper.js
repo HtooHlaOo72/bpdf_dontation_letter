@@ -18,7 +18,7 @@ const Paper = (props) => {
   let data=(type==="money")?props.donation:props.supply;
   let {donor,amount,amountText,unit,signedBy,topic,date,serialNo,supply}=data;
   date=date&&convertDate(date);
-  amount=amount&&convertNumber(amount+'');
+  //amount=amount&&convertNumber(amount+'');
   let isAuth=props.auth.isAuthenticated;
 
   const saveImage = () =>
