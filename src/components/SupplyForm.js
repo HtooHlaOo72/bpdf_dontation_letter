@@ -16,14 +16,14 @@ const validate = (values) => {
   }
   if (values.supply === "" && values.supply.length <= 0) {
     errors.supply = "Required";
-  } else if (values.topic.length > 600) {
+  } else if (values.supply.length > 600) {
     errors.supply = "Must be less than 600 characters";
   }
-  if (values.defaultTopic === "" && values.topic.length <= 0) {
-    errors.topic = "Required";
-  } else if (values.topic.length > 600) {
-    errors.topic = "Must be less than 600 characters";
-  }
+  // if (values.defaultTopic === "" && values.topic.length <= 0) {
+  //   errors.topic = "Required";
+  // } else if (values.topic.length > 600) {
+  //   errors.topic = "Must be less than 600 characters";
+  // }
   if (!values.date) {
     errors.date = "Required";
   }
@@ -62,7 +62,7 @@ function SupplyForm(props) {
       donor: "",
       supply: "",
       updateDate: "",
-      topic: "",
+      // topic: "",
       signedBy: "",
       extraNote: "",
     };
@@ -85,9 +85,9 @@ function SupplyForm(props) {
           if (data.isConfirmed) {
             if (action === "update" && s_id) {
               const data = await props.supply;
-              values.topic = values.defaultTopic
-                ? values.defaultTopic
-                : values.topic;
+              // values.topic = values.defaultTopic
+              //   ? values.defaultTopic
+              //   : values.topic;
               let changedData = {};
               for (let p in data) {
                 if (values[p] !== data[p]) {
@@ -98,9 +98,9 @@ function SupplyForm(props) {
               await props.updateSupply(changedData,props.auth.token);
               history.push('/dashboard');
             }else{
-                values.topic = values.defaultTopic
-                ? values.defaultTopic
-                : values.topic;
+                // values.topic = values.defaultTopic
+                // ? values.defaultTopic
+                // : values.topic;
                 props.createSupply(values,props.auth.token);
                 history.push('/dashboard');
             }
@@ -164,7 +164,7 @@ function SupplyForm(props) {
               )}
             </div>
             <div className="mb-3">
-              <label htmlFor="topic" className="form-label">
+              <label htmlFor="supply" className="form-label">
                 ထောက်ပံ့သောအရာ
               </label>
               <textarea
@@ -182,7 +182,7 @@ function SupplyForm(props) {
                 </div>
               )}
             </div>
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <label htmlFor="topic" className="form-label">
                 အကြောင်းအရာ(အခြား)
               </label>
@@ -234,7 +234,7 @@ function SupplyForm(props) {
                   {formik.errors.defaultTopic}
                 </div>
               )}
-            </div>
+            </div> */}
             <div className="mb-3">
               <label htmlFor="signedBy" className="form-label">
                 တာဝန်ခံ
