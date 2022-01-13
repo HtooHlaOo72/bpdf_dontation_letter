@@ -9,7 +9,7 @@ import {saveAs} from 'file-saver';
 import uuid from 'react-uuid';
 import {connect} from 'react-redux';
 import { useHistory,useParams } from "react-router";
-import convertDate, { convertNumber } from "../utils/convertDate";
+import convertDate from "../utils/convertDate";
 import convertId from "../utils/generateId";
 const Paper = (props) => {
   let history=useHistory();
