@@ -37,7 +37,7 @@ function DonatonDisplay(props) {
         ? (
           <DonorData
             donor={donation.donor}
-            sup={donation.amount + " " + donation.unit}
+            sup={donation.amount.toLocaleString("en-US") + " " + donation.unit}
             serialNo={donation.serialNo}
             setDetail={setDetail}
           />

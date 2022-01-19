@@ -133,7 +133,7 @@ const Paper = (props) => {
                   <b>
                   {
                     amount
-                    ?amount+"/-"
+                    ?amount.toLocaleString("en-US")+"/-"
                     :"0"
                   }
                   {
