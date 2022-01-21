@@ -116,8 +116,8 @@ const Paper = (props) => {
               </span>{" "}
               အတွက်
               <br />
-              {topic ? topic : "လိုအပ်သော နေရာများတွင် အသုံးပြုနိုင်ရန်"}
-              <br />
+              {/* {topic ? topic : "လိုအပ်သော နေရာများတွင် အသုံးပြုနိုင်ရန်"}
+              <br /> */}
               <span className={css.student}>
                 <b>{donor ? donor : "မောင်အောင်အောင်"}</b> မှ{" "}
                 {type === "money" && (
