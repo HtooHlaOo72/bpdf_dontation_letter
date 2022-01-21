@@ -1,5 +1,5 @@
 import cx from "classnames";
-import { createRef, useEffect } from "react";
+import { createRef, Fragment, useEffect } from "react";
 import * as htmlToImage from "html-to-image";
 import Logo from "../utils/images/bpdf_logo.jpg";
 import Sign from "../utils/images/sign.png";
@@ -116,8 +116,12 @@ const Paper = (props) => {
               </span>{" "}
               အတွက်
               <br />
-              {/* {topic ? topic : "လိုအပ်သော နေရာများတွင် အသုံးပြုနိုင်ရန်"}
-              <br /> */}
+              {type === "money" && (
+                <Fragment>
+                  {topic ? topic : "လိုအပ်သော နေရာများတွင် အသုံးပြုနိုင်ရန်"}
+                  <br />
+                </Fragment>
+              )}
               <span className={css.student}>
                 <b>{donor ? donor : "မောင်အောင်အောင်"}</b> မှ{" "}
                 {type === "money" && (
