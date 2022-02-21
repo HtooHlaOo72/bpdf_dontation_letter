@@ -144,7 +144,7 @@ const Paper = (props) => {
               <p>Bago People Defense Force-BPDF</p>
             </div>
             <h6 className="uniq-id my-5">
-              အမှတ်စဉ် - S{serialNo ? convertId(serialNo) : "00001"} ( {_id} )
+              အမှတ်စဉ် - {type === "supply" ? "S" : ""}{serialNo ? convertId(serialNo) : "00001"} ( {_id} )
             </h6>
           </div>
         </div>
